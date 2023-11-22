@@ -8,8 +8,14 @@ from flask_restful import Resource
 
 # Local imports
 from config import app, db, api
-# Add your model imports
 
+# Model imports
+from models.user import User
+from schemas.user_schema import UserSchema
+
+# Schemas
+user_schema = UserSchema(session=db.session)
+users_schema = UserSchema(many=True, session=db.session)
 
 # Views go here!
 

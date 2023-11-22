@@ -64,3 +64,9 @@ __pycache__
 instance
 .vscode
 package-lock.json
+
+.env
+
+Piplock.lock
+
+server/migrations/versions

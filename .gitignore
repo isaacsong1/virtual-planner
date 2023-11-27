@@ -67,6 +67,6 @@ package-lock.json
 
 .env
 
-Piplock.lock
+Pipfile.lock
 
 server/migrations/versions

@@ -3,6 +3,7 @@ from app_setup import db
 from sqlalchemy.ext.hybrid import hybrid_property
 from app_setup import bcrypt
 
+
 class User(db.Model):
     __tablename__ = "users"
 
@@ -19,10 +20,10 @@ class User(db.Model):
     @hybrid_property
     def password_hash(self):
         raise AttributeError("No peeking at the password...")
-    
+
     @password_hash.setter
     def password_hash(self, new_password):
-        hashed_password = bcrypt.generate_password_hash(new_password).decode('utf-8')
+        hashed_password = bcrypt.generate_password_hash(new_password).decode("utf-8")
         self._password_hash = hashed_password
 
     def authenticate(self, password_to_check):
@@ -30,3 +31,4 @@ class User(db.Model):
 
     def __repr__(self):
         return f"<User #{self.id} {self.username} />"
+

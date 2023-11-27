@@ -12,13 +12,14 @@ class User(db.Model):
     _password_hash = db.Column(db.String, nullable=False)
     location = db.Column(db.String)
     bio = db.Column(db.String)
+    interests = db.Column(db.String)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
     @hybrid_property
     def password_hash(self):
         raise AttributeError('No peeking at the password...')
-    
+
     @password_hash.setter
     def password_hash(self, new_password):
         hashed_password = bcrypt.generate_password_hash(new_password).decode('utf-8')
@@ -26,4 +27,3 @@ class User(db.Model):
 
     def authenticate(self, password_to_check):
         return bcrypt.check_password_hash(self._password_hash, password_to_check)
-

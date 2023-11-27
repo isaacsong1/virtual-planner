@@ -1,6 +1,7 @@
 from sqlalchemy.orm import validates
 import re
 from app_setup import db
+from .journal import Journal
 
 
 class Entry(db.Model):
@@ -15,11 +16,24 @@ class Entry(db.Model):
     # relationships
     journal = db.relationship("Journal", back_populates="entries", cascade="all, delete-orphan")
 
-    # associations
-
-    # serializations
-
     # validations
+    @validates("entry")
+    def validate_entry(self, _, value):
+        if not isinstance(value, str):
+            raise TypeError(f"{value} must be a string")
+        elif len(value) < 3 or len(value) > 3000:
+            raise ValueError(f"{value} must be between 3 and 3000 characters")
+        return value
+
+    @validates("journal_id")
+    def validate_journal_id(self, _, value):
+        if not isinstance(value, int):
+            raise TypeError(f"{value} must be an integer")
+        elif value < 1:
+            raise ValueError(f"{value} must be a positive integer")
+        elif not db.session.get(Journal, value):
+            raise ValueError(f"{value} has to correspond to an existing journal")
+        return value
 
     def __repr__(self):
         return f"<Entry #{self.id} {self.date} />"

@@ -1,5 +1,7 @@
-from . import validates, re
+from sqlalchemy.orm import validates
+import re
 from app_setup import db
+from sqlalchemy.ext.associationproxy import association_proxy
 
 
 class Community(db.Model):
@@ -10,14 +12,14 @@ class Community(db.Model):
     name = db.Column(db.String, nullable=False)
     description = db.Column(db.String, nullable=False)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
-    owner = db.Column(db.Integer, db.ForeignKey("users.id"))
+    owner_id = db.Column(db.Integer, db.ForeignKey("users.id", ondelete="CASCADE"))
 
     # relationships
-    #! owner (user_id alias)
+    user_communities = db.relationship("UserCommunity", back_populates = "communities")
+    owner = db.relationship("User", back_populates="community")
 
     # associations
-
-    # serializations
+    users = association_proxy("user_communities", "user")
 
     # validations
     # here is my random comment!!!

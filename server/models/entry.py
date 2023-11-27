@@ -1,4 +1,5 @@
-from . import validates, re
+from sqlalchemy.orm import validates
+import re
 from app_setup import db
 
 
@@ -12,7 +13,7 @@ class Entry(db.Model):
     journal_id = db.Column(db.Integer, db.ForeignKey("journals.id"))
 
     # relationships
-    #! journal_id
+    journal = db.relationship("Journal", back_populates="entries", cascade="all, delete-orphan")
 
     # associations
 

@@ -1,4 +1,5 @@
-from . import validates, re
+from sqlalchemy.orm import validates
+import re
 from app_setup import db
 
 
@@ -11,8 +12,8 @@ class UserCommunity(db.Model):
     community_id = db.Column(db.Integer, db.ForeignKey("communities.id"))
 
     # relationships
-    #! user_id
-    #! community_id
+    user = db.relationship("User", back_populates="user_communities", cascade="all, cascade-orphan")
+    community = db.relationship("Community", back_populates="user_communities", cascade="all, cascade-orphan")
 
     # associations
 

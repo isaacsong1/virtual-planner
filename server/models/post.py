@@ -1,5 +1,7 @@
-from . import validates, re
+from sqlalchemy.orm import validates
+import re
 from app_setup import db
+from sqlalchemy.ext.associationproxy import association_proxy
 
 
 class Post(db.Model):
@@ -13,9 +15,11 @@ class Post(db.Model):
     user_communities_id = db.Column(db.Integer, db.ForeignKey("user_communities.id"))
 
     # relationships
-    #! user_communities_id
+    user_communities = db.relationship("UserCommunity", back_populates="posts", cascade="all, delete-orphan")
 
     # associations
+    user = association_proxy("user_communities", "user")
+    community = association_proxy("user_communities", "community")
 
     # serializations
 

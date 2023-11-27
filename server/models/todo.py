@@ -1,4 +1,5 @@
-from . import validates, re
+from sqlalchemy.orm import validates
+import re
 from app_setup import db
 
 
@@ -13,7 +14,7 @@ class Todo(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
     # relationships
-    #! user_id
+    user = db.relationship("User", back_populates="todos", cascade = "all, delete-orphan")
 
     # associations
 

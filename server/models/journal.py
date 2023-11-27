@@ -1,4 +1,5 @@
-from . import validates, re
+from sqlalchemy.orm import validates
+import re
 from app_setup import db
 
 
@@ -10,11 +11,10 @@ class Journal(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
     # relationships
-    #! user_id
+    user = db.relationship("User", back_populates="journals", cascade="all, cascade-orphan")
 
     # associations
-
-    # serializations
+    entries = db.relationship("Entry", back_populates="entries")
 
     # validations
 

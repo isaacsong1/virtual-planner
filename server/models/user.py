@@ -1,7 +1,9 @@
-from . import validates, re
+from sqlalchemy.orm import validates
+import re
 from app_setup import db
 from sqlalchemy.ext.hybrid import hybrid_property
 from app_setup import bcrypt
+from sqlalchemy.ext.associationproxy import association_proxy
 
 
 class User(db.Model):
@@ -17,6 +19,18 @@ class User(db.Model):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
+    #relationships
+    journal = db.relationship("Journal", back_populates="user")
+    todos = db.relationship("Todo", back_populates="user")
+    user_communities = db.relationship("UserCommunity", back_populates="user")
+    community = db.relationship("Community", back_populates="owner")
+    #association
+    communities = association_proxy('user_communities', 'community')
+
+
+
+
+
     @hybrid_property
     def password_hash(self):
         raise AttributeError("No peeking at the password...")
@@ -31,4 +45,3 @@ class User(db.Model):
 
     def __repr__(self):
         return f"<User #{self.id} {self.username} />"
-

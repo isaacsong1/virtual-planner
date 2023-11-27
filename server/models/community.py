@@ -19,6 +19,7 @@ class Community(db.Model):
     # serializations
 
     # validations
+    # here is my random comment!!!
 
     def __repr__(self):
         return f"<Community #{self.id} {self.name} />"

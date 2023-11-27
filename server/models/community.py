@@ -22,8 +22,14 @@ class Community(db.Model):
     users = association_proxy("user_communities", "user")
 
     # validations
-    # here is my random comment!!!
-    # this is really hidden!!
+    @validates("name")
+    def validate_name(self, _, value):
+        if not isinstance(value, str):
+            raise TypeError(f"{value} must be a string")
+        elif len(value) < 2 or len(value) > 20:
+            raise ValueError(f"{value} must be between 2 and 20 characters")
+        return value
+
 
     def __repr__(self):
         return f"<Community #{self.id} {self.name} />"

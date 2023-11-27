@@ -69,4 +69,4 @@ package-lock.json
 
 Pipfile.lock
 
-server/migrations/versions
+server/migrations

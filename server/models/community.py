@@ -20,6 +20,7 @@ class Community(db.Model):
 
     # validations
     # here is my random comment!!!
+    # this is really hidden!!
 
     def __repr__(self):
         return f"<Community #{self.id} {self.name} />"

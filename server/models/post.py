@@ -2,7 +2,7 @@ from sqlalchemy.orm import validates
 import re
 from app_setup import db
 from sqlalchemy.ext.associationproxy import association_proxy
-from .user_community import UserCommunity
+# from .user_community import UserCommunity
 
 
 class Post(db.Model):
@@ -41,15 +41,15 @@ class Post(db.Model):
             raise ValueError(f"{value} must be between 3 and 3000 characters")
         return value
 
-    @validates("user_communities_id")
-    def validate_user_communities_id(self, _, value):
-        if not isinstance(value, int):
-            raise TypeError(f"{value} must be an integer")
-        elif value < 1:
-            raise ValueError(f"{value} must be a positive integer")
-        elif not db.session.get(UserCommunity, value):
-            raise ValueError(f"{value} has to correspond to an existing user_community")
-        return value
+    # @validates("user_communities_id")
+    # def validate_user_communities_id(self, _, value):
+    #     if not isinstance(value, int):
+    #         raise TypeError(f"{value} must be an integer")
+    #     elif value < 1:
+    #         raise ValueError(f"{value} must be a positive integer")
+    #     elif not db.session.get(UserCommunity, value):
+    #         raise ValueError(f"{value} has to correspond to an existing user_community")
+    #     return value
 
     def __repr__(self):
         return f"<Post #{self.id} {self.title} />"

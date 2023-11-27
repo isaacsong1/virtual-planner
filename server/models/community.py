@@ -2,7 +2,7 @@ from sqlalchemy.orm import validates
 import re
 from app_setup import db
 from sqlalchemy.ext.associationproxy import association_proxy
-from .user import User
+# from .user import User
 
 
 class Community(db.Model):
@@ -39,15 +39,15 @@ class Community(db.Model):
             raise ValueError(f"{value} must be between 5 and 100 characters")
         return value
 
-    @validates("owner_id")
-    def validate_owner_id(self, _, value):
-        if not isinstance(value, int):
-            raise TypeError(f"{value} must be an integer")
-        elif value < 1:
-            raise ValueError(f"{value} must be a positive integer")
-        elif not db.session.get(User, value):
-            raise ValueError(f"{value} has to correspond to an existing user")
-        return value
+    # @validates("owner_id")
+    # def validate_owner_id(self, _, value):
+    #     if not isinstance(value, int):
+    #         raise TypeError(f"{value} must be an integer")
+    #     elif value < 1:
+    #         raise ValueError(f"{value} must be a positive integer")
+    #     elif not db.session.get(User, value):
+    #         raise ValueError(f"{value} has to correspond to an existing user")
+    #     return value
 
 
     def __repr__(self):

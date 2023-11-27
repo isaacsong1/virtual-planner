@@ -12,8 +12,8 @@ class UserCommunity(db.Model):
     community_id = db.Column(db.Integer, db.ForeignKey("communities.id"))
 
     # relationships
-    user = db.relationship("User", back_populates="user_communities", cascade="all, cascade-orphan")
-    community = db.relationship("Community", back_populates="user_communities", cascade="all, cascade-orphan")
+    user = db.relationship("User", back_populates="user_communities", cascade="all, delete-orphan")
+    community = db.relationship("Community", back_populates="user_communities", cascade="all, delete-orphan")
 
     # associations
 

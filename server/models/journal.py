@@ -11,7 +11,7 @@ class Journal(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
     # relationships
-    user = db.relationship("User", back_populates="journals", cascade="all, cascade-orphan")
+    user = db.relationship("User", back_populates="journals", cascade="all, delete-orphan")
 
     # associations
     entries = db.relationship("Entry", back_populates="entries")

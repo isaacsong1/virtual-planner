@@ -7,6 +7,8 @@ class UserCommunity(db.Model):
 
     # Columns for user_communities Table
     id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    community_id = db.Column(db.Integer, db.ForeignKey("communities.id"))
 
     # relationships
     #! user_id

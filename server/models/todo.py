@@ -10,6 +10,7 @@ class Todo(db.Model):
     item = db.Column(db.String, nullable=False)
     status = db.Column(db.Boolean)
     day = db.Column(db.Integer, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
     # relationships
     #! user_id

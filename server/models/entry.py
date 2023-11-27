@@ -9,6 +9,7 @@ class Entry(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.DateTime, server_default=db.func.now())
     entry = db.Column(db.String, nullable=False)
+    journal_id = db.Column(db.Integer, db.ForeignKey("journals.id"))
 
     # relationships
     #! journal_id

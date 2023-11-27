@@ -10,6 +10,7 @@ class Community(db.Model):
     name = db.Column(db.String, nullable=False)
     description = db.Column(db.String, nullable=False)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
+    owner = db.Column(db.Integer, db.ForeignKey("users.id"))
 
     # relationships
     #! owner (user_id alias)

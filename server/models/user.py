@@ -11,10 +11,9 @@ class User(db.Model):
 
     # Columns for users Table
     id = db.Column(db.Integer, primary_key=True)
-    # username = db.Column(db.String, nullable=False, unique=True)
-    username = db.Column(db.String, nullable=False)
+    username = db.Column(db.String, nullable=False, unique=True)
     _password_hash = db.Column(db.String, nullable=False)
-    # _password_hash = db.Column(db.String, nullable=False)
+    email = db.Column(db.String, nullable=False, unique=True)
     location = db.Column(db.String)
     bio = db.Column(db.String)
     interests = db.Column(db.String)
@@ -38,6 +37,14 @@ class User(db.Model):
             raise ValueError(f"Username must be between 3 and 20 characters")
         return value
 
+    @validates("email")
+    def validate_email(self, _, value):
+        if not isinstance(value, str):
+            raise TypeError(f"Email must be a string")
+        elif len(value) < 2 or len(value) > 256:
+            raise ValueError(f"Email must be between 2 and 256 characters")
+        return value
+    
     @validates("bio")
     def validate_bio(self, _, value):
         if not isinstance(value, str):
@@ -57,10 +64,6 @@ class User(db.Model):
     @hybrid_property
     def password_hash(self):
         raise AttributeError("No peeking at the password...")
-
-    # @property
-    # def password_hash(self):
-    #     return self._password_hash
 
     @password_hash.setter
     def password_hash(self, new_password):

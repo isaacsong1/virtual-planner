@@ -35,17 +35,16 @@ if __name__ == "__main__":
         print("Seeding users...")
         users = []
         for i in range(4):
-            users.append(
-                User(
+            u = User(
                     username=fake.first_name(),
-                    _password_hash=fake.first_name(),
+                    email=fake.email(),
                     location=fake.first_name(),
                     bio=fake.first_name(),
                     interests=fake.first_name(),
                 )
-            )
-
-        db.session.add_all(users)
+            u.password_hash = fake.first_name()
+            users.append(u)
+            db.session.add(u)
         db.session.commit()
 
         print("Seeding todos...")

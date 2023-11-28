@@ -11,8 +11,10 @@ class User(db.Model):
 
     # Columns for users Table
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String, nullable=False, unique=True)
+    # username = db.Column(db.String, nullable=False, unique=True)
+    username = db.Column(db.String, nullable=False)
     _password_hash = db.Column(db.String, nullable=False)
+    # _password_hash = db.Column(db.String, nullable=False)
     location = db.Column(db.String)
     bio = db.Column(db.String)
     interests = db.Column(db.String)
@@ -20,9 +22,9 @@ class User(db.Model):
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
     #relationships
-    journal = db.relationship("Journal", back_populates="user")
-    todos = db.relationship("Todo", back_populates="user")
-    user_communities = db.relationship("UserCommunity", back_populates="user")
+    journal = db.relationship("Journal", back_populates="user", cascade="all, delete-orphan")
+    todos = db.relationship("Todo", back_populates="user", cascade = "all, delete-orphan")
+    user_communities = db.relationship("UserCommunity", back_populates="user", cascade="all, delete-orphan")
     community = db.relationship("Community", back_populates="owner")
     #association
     communities = association_proxy('user_communities', 'community')
@@ -40,21 +42,25 @@ class User(db.Model):
     def validate_bio(self, _, value):
         if not isinstance(value, str):
             raise TypeError(f"Bio must be a string")
-        elif len(value) < 5 or len(value) > 100:
+        elif len(value) < 2 or len(value) > 100:
             raise ValueError(f"Bio must be between 5 and 100 characters")
         return value
 
     @validates("interests")
     def validate_interests(self, _, value):
-        if not isinstance(value, list):
-            raise TypeError(f"Interests must be a list")
-        elif len(value) < 1 or len(value) > 5:
+        if not isinstance(value, str):
+            raise TypeError(f"Interests must be a string")
+        elif len(value) < 2 or len(value) > 20:
             raise ValueError(f"Interests must be between 1 and 5 items")
         return value
 
     @hybrid_property
     def password_hash(self):
         raise AttributeError("No peeking at the password...")
+
+    # @property
+    # def password_hash(self):
+    #     return self._password_hash
 
     @password_hash.setter
     def password_hash(self, new_password):

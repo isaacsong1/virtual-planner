@@ -12,10 +12,10 @@ class Journal(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
     # relationships
-    user = db.relationship("User", back_populates="journals", cascade="all, delete-orphan")
+    user = db.relationship("User", back_populates="journal")
 
     # associations
-    entries = db.relationship("Entry", back_populates="entries")
+    entries = db.relationship("Entry", back_populates="journal", cascade="all, delete-orphan")
 
     # validations
     # @validates("user_id")

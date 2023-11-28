@@ -14,7 +14,7 @@ class Todo(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
     # relationships
-    user = db.relationship("User", back_populates="todos", cascade = "all, delete-orphan")
+    user = db.relationship("User", back_populates="todos")
 
     # associations
 

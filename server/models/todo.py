@@ -21,6 +21,13 @@ class Todo(db.Model):
     # serializations
 
     # validations
+    @validates("item")
+    def validate_item(self, _, value):
+        if not isinstance(value, str):
+            raise TypeError(f"Item must be a string")
+        elif len(value) < 2 or len(value) > 30:
+            raise ValueError(f"Item must be between 2 and 30 characters")
+        return value
 
     def __repr__(self):
         return f"<Todo #{self.id} {self.item} />"

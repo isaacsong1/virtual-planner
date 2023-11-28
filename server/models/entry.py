@@ -20,9 +20,9 @@ class Entry(db.Model):
     @validates("entry")
     def validate_entry(self, _, value):
         if not isinstance(value, str):
-            raise TypeError(f"{value} must be a string")
+            raise TypeError(f"Entry must be a string")
         elif len(value) < 3 or len(value) > 3000:
-            raise ValueError(f"{value} must be between 3 and 3000 characters")
+            raise ValueError(f"Entry must be between 3 and 3000 characters")
         return value
 
     # @validates("journal_id")

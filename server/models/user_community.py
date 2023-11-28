@@ -17,9 +17,5 @@ class UserCommunity(db.Model):
 
     # associations
 
-    # serializations
-
-    # validations
-
     def __repr__(self):
         return f"<UserCommunity #{self.id} />"

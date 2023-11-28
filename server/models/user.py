@@ -27,9 +27,30 @@ class User(db.Model):
     #association
     communities = association_proxy('user_communities', 'community')
 
+    #validations
+    @validates("username")
+    def validate_username(self, _, value):
+        if not isinstance(value, str):
+            raise TypeError(f"Username must be a string")
+        elif len(value) < 3 or len(value) > 20:
+            raise ValueError(f"Username must be between 3 and 20 characters")
+        return value
 
+    @validates("bio")
+    def validate_bio(self, _, value):
+        if not isinstance(value, str):
+            raise TypeError(f"Bio must be a string")
+        elif len(value) < 5 or len(value) > 100:
+            raise ValueError(f"Bio must be between 5 and 100 characters")
+        return value
 
-
+    @validates("interests")
+    def validate_interests(self, _, value):
+        if not isinstance(value, list):
+            raise TypeError(f"Interests must be a list")
+        elif len(value) < 1 or len(value) > 5:
+            raise ValueError(f"Interests must be between 1 and 5 items")
+        return value
 
     @hybrid_property
     def password_hash(self):

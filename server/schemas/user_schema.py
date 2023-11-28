@@ -11,5 +11,5 @@ class UserSchema(ma.SQLAlchemySchema):
     password_hash = fields.String(validate=validate.Length(min=12, max=50))
     email = fields.String(required=True, validate=validate.Length(min=2, max=256))
     # interests = fields.List(fields.String(), required=True, validate=validate.Length(min=1, max=5))
-    interests = fields.String(required=True, validate=validate.Length(min=2, max=20))
-    bio = fields.String(required=True, validate=validate.Length(min=2, max=100))
+    # interests = fields.String(required=True, validate=validate.Length(min=2, max=20))
+    # bio = fields.String(required=True, validate=validate.Length(min=2, max=100))

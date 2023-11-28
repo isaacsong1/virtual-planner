@@ -1,4 +1,4 @@
-from . import fields, validate
+from marshmallow import fields, validate, validates, ValidationError
 from models.community import Community
 from app_setup import ma
 

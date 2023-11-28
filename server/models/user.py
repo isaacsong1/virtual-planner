@@ -1,7 +1,9 @@
-from . import validates, re
+from sqlalchemy.orm import validates
+import re
 from app_setup import db
 from sqlalchemy.ext.hybrid import hybrid_property
 from app_setup import bcrypt
+from sqlalchemy.ext.associationproxy import association_proxy
 
 
 class User(db.Model):
@@ -17,6 +19,39 @@ class User(db.Model):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
+    #relationships
+    journal = db.relationship("Journal", back_populates="user")
+    todos = db.relationship("Todo", back_populates="user")
+    user_communities = db.relationship("UserCommunity", back_populates="user")
+    community = db.relationship("Community", back_populates="owner")
+    #association
+    communities = association_proxy('user_communities', 'community')
+
+    #validations
+    @validates("username")
+    def validate_username(self, _, value):
+        if not isinstance(value, str):
+            raise TypeError(f"Username must be a string")
+        elif len(value) < 3 or len(value) > 20:
+            raise ValueError(f"Username must be between 3 and 20 characters")
+        return value
+
+    @validates("bio")
+    def validate_bio(self, _, value):
+        if not isinstance(value, str):
+            raise TypeError(f"Bio must be a string")
+        elif len(value) < 5 or len(value) > 100:
+            raise ValueError(f"Bio must be between 5 and 100 characters")
+        return value
+
+    @validates("interests")
+    def validate_interests(self, _, value):
+        if not isinstance(value, list):
+            raise TypeError(f"Interests must be a list")
+        elif len(value) < 1 or len(value) > 5:
+            raise ValueError(f"Interests must be between 1 and 5 items")
+        return value
+
     @hybrid_property
     def password_hash(self):
         raise AttributeError("No peeking at the password...")
@@ -31,4 +66,3 @@ class User(db.Model):
 
     def __repr__(self):
         return f"<User #{self.id} {self.username} />"
-

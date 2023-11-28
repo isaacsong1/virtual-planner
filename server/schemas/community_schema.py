@@ -9,4 +9,4 @@ class CommunitySchema(ma.SQLAlchemySchema):
         load_instance = True
 
     name = fields.String(required=True, validate=validate.Length(min=2, max=20))
-    description = fields.String(validate=validate.Length(min=5, max=100))
+    description = fields.String(validate=validate.Length(min=3, max=100))

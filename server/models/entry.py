@@ -14,7 +14,7 @@ class Entry(db.Model):
     journal_id = db.Column(db.Integer, db.ForeignKey("journals.id"))
 
     # relationships
-    journal = db.relationship("Journal", back_populates="entries", cascade="all, delete-orphan")
+    journal = db.relationship("Journal", back_populates="entries")
 
     # validations
     @validates("entry")

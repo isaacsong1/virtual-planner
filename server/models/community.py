@@ -16,7 +16,7 @@ class Community(db.Model):
     owner_id = db.Column(db.Integer, db.ForeignKey("users.id", ondelete="CASCADE"))
 
     # relationships
-    user_communities = db.relationship("UserCommunity", back_populates = "communities")
+    user_communities = db.relationship("UserCommunity", back_populates = "community", cascade="all, delete-orphan")
     owner = db.relationship("User", back_populates="community")
 
     # associations
@@ -35,8 +35,8 @@ class Community(db.Model):
     def validate_description(self, _, value):
         if not isinstance(value, str):
             raise TypeError(f"Description must be a string")
-        elif len(value) < 5 or len(value) > 100:
-            raise ValueError(f"Description must be between 5 and 100 characters")
+        elif len(value) < 3 or len(value) > 100:
+            raise ValueError(f"Description must be between 3 and 100 characters")
         return value
 
     # @validates("owner_id")

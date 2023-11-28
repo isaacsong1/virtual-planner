@@ -7,8 +7,7 @@ from random import randint, choice as rc
 from faker import Faker
 
 # Local imports
-from app import app
-from config import db
+from app_setup import app, db
 from models.community import Community
 from models.entry import Entry
 from models.journal import Journal
@@ -38,64 +37,71 @@ if __name__ == "__main__":
         for i in range(4):
             users.append(
                 User(
-                    username=fake.name(),
-                    password=fake.name(),
-                    location=fake.name(),
-                    bio=fake.name(),
-                    interests=[fake.name()],
+                    username=fake.first_name(),
+                    _password_hash=fake.first_name(),
+                    location=fake.first_name(),
+                    bio=fake.first_name(),
+                    interests=fake.first_name(),
                 )
             )
 
         db.session.add_all(users)
+        db.session.commit()
 
         print("Seeding todos...")
         todos = []
         for u in users:
-            todos.append(Todo(item=fake.name(), status=False, day=0))
+            todos.append(Todo(item=fake.first_name(), status=False, day=0, user_id=4))
         db.session.add_all(todos)
+        db.session.commit()
 
         print("Seeding journals...")
         journals = []
-        for u in users:
-            journals.append(Journal(u.get("user_id")))
+        for u in User.query:
+            journals.append(Journal(user_id=u.id))
         db.session.add_all(journals)
+        db.session.commit()
 
         print("Seeding entries...")
         entries = []
-        for j in journals:
-            entries.append(Entry(date=fake.date(), entry=fake.name()))
+        for j in Journal.query:
+            entries.append(Entry(date=fake.date_time(), entry=fake.first_name(), journal_id=j.id))
         db.session.add_all(entries)
+        db.session.commit()
 
         print("Seeding communities...")
         communities = []
         for i in range(4):
-            communities.append(Community(name=fake.name(), description=fake.name()))
+            communities.append(Community(name=fake.first_name(), description=fake.first_name(), owner_id=4))
         db.session.add_all(communities)
+        db.session.commit()
 
         print("Seeding user_communities...")
         user_communities = [
-            UserCommunity(users[1].get("user_id"), communities[1].get("community_id")),
-            UserCommunity(users[2].get("user_id"), communities[2].get("community_id")),
-            UserCommunity(users[3].get("user_id"), communities[3].get("community_id")),
-            UserCommunity(users[0].get("user_id"), communities[0].get("community_id")),
-            UserCommunity(users[0].get("user_id"), communities[0].get("community_id")),
-            UserCommunity(users[1].get("user_id"), communities[1].get("community_id")),
-            UserCommunity(users[2].get("user_id"), communities[2].get("community_id")),
-            UserCommunity(users[3].get("user_id"), communities[3].get("community_id")),
+            UserCommunity(user_id=users[1].id, community_id=communities[1].id),
+            UserCommunity(user_id=users[2].id, community_id=communities[2].id),
+            UserCommunity(user_id=users[3].id, community_id=communities[3].id),
+            UserCommunity(user_id=users[0].id, community_id=communities[0].id),
+            UserCommunity(user_id=users[0].id, community_id=communities[0].id),
+            UserCommunity(user_id=users[1].id, community_id=communities[1].id),
+            UserCommunity(user_id=users[2].id, community_id=communities[2].id),
+            UserCommunity(user_id=users[3].id, community_id=communities[3].id),
         ]
         db.session.add_all(user_communities)
+        db.session.commit()
 
         print("Seeding posts...")
         posts = []
         for u in user_communities:
-            uc = rc(user_communities).get("user_communities_id")
+            uc = rc(user_communities)
             posts.append(
                 Post(
-                    title=fake.name(),
-                    content=fake.name(),
-                    user_communities_id=uc,
+                    title=fake.first_name(),
+                    content=fake.first_name(),
+                    user_communities_id=uc.id,
                 )
             )
         db.session.add_all(posts)
+        db.session.commit()
 
         print("Done seeding!")

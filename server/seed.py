@@ -80,11 +80,7 @@ if __name__ == "__main__":
             UserCommunity(user_id=users[1].id, community_id=communities[1].id),
             UserCommunity(user_id=users[2].id, community_id=communities[2].id),
             UserCommunity(user_id=users[3].id, community_id=communities[3].id),
-            UserCommunity(user_id=users[0].id, community_id=communities[0].id),
-            UserCommunity(user_id=users[0].id, community_id=communities[0].id),
-            UserCommunity(user_id=users[1].id, community_id=communities[1].id),
-            UserCommunity(user_id=users[2].id, community_id=communities[2].id),
-            UserCommunity(user_id=users[3].id, community_id=communities[3].id),
+            UserCommunity(user_id=users[0].id, community_id=communities[0].id)
         ]
         db.session.add_all(user_communities)
         db.session.commit()

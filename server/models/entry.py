@@ -17,6 +17,13 @@ class Entry(db.Model):
     journal = db.relationship("Journal", back_populates="entries")
 
     # validations
+    # @validates("date")
+    # def validate_date(self, _, value):
+    #     if self.date.day == value.day and self.date.month == value.month and self.date.year == value.year:
+    #         import ipdb; ipdb.set_trace()
+    #         return value
+    #     raise ValueError('Only one entry allowed')
+    
     @validates("entry")
     def validate_entry(self, _, value):
         if not isinstance(value, str):

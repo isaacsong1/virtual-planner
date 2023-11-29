@@ -20,20 +20,19 @@ from app_setup import app, db, ma, api
 # from models.journal import Journal
 
 # Route imports
-from routes.users import Users
-from routes.user_by_id import UserById
 from routes.communities import Communities
 from routes.community_by_id import CommunityById
-from routes.register import Register
-from routes.todos import Todos
-from routes.user_communities import UserCommunities
 from routes.journal_by_id import JournalById
-from routes.entries import Entries
-from routes.todo_by_id import TodoById
 from routes.login import Login
 from routes.logout import Logout
-from routes.posts import Posts
 from routes.post_by_id import PostById
+from routes.posts import Posts
+from routes.register import Register
+from routes.todo_by_id import TodoById
+from routes.todos import Todos
+from routes.user_by_id import UserById
+from routes.user_communities import UserCommunities
+from routes.users import Users
 
 # Schemas
 
@@ -46,19 +45,20 @@ from routes.post_by_id import PostById
 # todos_schema = TodoSchema(many=True, session=db.session)
 
 # Add resources
-api.add_resource(Users, '/users')
-api.add_resource(UserById, '/users/<int:id>')
 api.add_resource(Communities, '/communities')
 api.add_resource(CommunityById, '/communities/<int:id>')
-api.add_resource(Register, '/register')
-api.add_resource(Todos, '/todos')
 api.add_resource(JournalById, '/journal/<int:id>')
-# api.add_resource(Entries, '/journal/<int:id>')
-api.add_resource(TodoById, '/todos/<int:id>')
 api.add_resource(Login, '/login')
 api.add_resource(Logout, '/logout')
-api.add_resource(Posts, '/communities/<int:id>/posts')
 api.add_resource(PostById, '/posts/<int:id>')
+api.add_resource(Posts, '/communities/<int:id>/posts')
+api.add_resource(Register, '/register')
+api.add_resource(TodoById, '/todos/<int:id>')
+api.add_resource(Todos, '/todos')
+api.add_resource(UserById, '/users/<int:id>')
+api.add_resource(UserCommunities, '/usercommunities')
+api.add_resource(Users, '/users')
+# api.add_resource(Entries, '/journal/<int:id>')
 
 
 # Views go here!

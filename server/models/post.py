@@ -2,6 +2,7 @@ from sqlalchemy.orm import validates
 import re
 from app_setup import db
 from sqlalchemy.ext.associationproxy import association_proxy
+
 # from .user_community import UserCommunity
 
 
@@ -29,8 +30,8 @@ class Post(db.Model):
     def validate_title(self, _, value):
         if not isinstance(value, str):
             raise TypeError(f"Title must be a string")
-        elif len(value) < 2 or len(value) > 30:
-            raise ValueError(f"Title must be between 2 and 30 characters")
+        elif len(value) < 2 or len(value) > 50:
+            raise ValueError(f"Title must be between 2 and 50 characters")
         return value
 
     @validates("content")

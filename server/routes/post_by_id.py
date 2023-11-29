@@ -34,4 +34,12 @@ class PostById(Resource):
         return {'error': 'Could not find post'}, 404
 
     def delete(self, id):
-        pass
+        if post := db.session.get(Post, id):
+            try:
+                db.session.delete(post)
+                db.session.commit()
+                return {'message': f'Post {id} has been deleted'}, 200
+            except Exception as e:
+                db.session.rollback()
+                return {'error': str(e)}, 400
+        return {'error': 'Could not find post'}, 404

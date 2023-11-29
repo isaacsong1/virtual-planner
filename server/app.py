@@ -30,6 +30,7 @@ from routes.user_communities import UserCommunities
 from routes.journal_by_id import JournalById
 from routes.entries import Entries
 from routes.posts import Posts
+from routes.post_by_id import PostById
 
 # Schemas
 
@@ -51,6 +52,7 @@ api.add_resource(Todos, '/todos')
 api.add_resource(JournalById, '/journal/<int:id>')
 # api.add_resource(Entries, '/journal/<int:id>')
 api.add_resource(Posts, '/communities/<int:id>/posts')
+api.add_resource(PostById, '/posts/<int:id>')
 
 
 

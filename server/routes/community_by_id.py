@@ -12,7 +12,6 @@ class CommunityById(Resource):
     def get(self, id):
         if community := db.session.get(Community, id):
             community_schema = CommunitySchema()
-            import ipdb; ipdb.set_trace()
             return community_schema.dump(community), 200
         return {'error': 'Could not find that community'}, 404
     

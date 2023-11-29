@@ -7,6 +7,7 @@ import Communities from "./pages/communities";
 import Journals from "./pages/journals";
 import Dashboard from "./pages/dashboard";
 import Profile from "./pages/profile";
+import CommunityPage from "./pages/communityPage";
 
 const routes = [
   {
@@ -30,6 +31,10 @@ const routes = [
       {
         path: "/communities",
         element: <Communities />,
+      },
+      {
+        path: "/communities/:id",
+        element: <CommunityPage />,
       },
       {
         path: "/users/:id/profile",

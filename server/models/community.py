@@ -35,16 +35,16 @@ class Community(db.Model):
     def validate_name(self, _, value):
         if not isinstance(value, str):
             raise TypeError(f"Name must be a string")
-        elif len(value) < 2 or len(value) > 50:
-            raise ValueError(f"Name must be between 2 and 20 characters")
+        elif len(value) < 2 or len(value) > 80:
+            raise ValueError(f"Name must be between 2 and 80 characters")
         return value
 
     @validates("description")
     def validate_description(self, _, value):
         if not isinstance(value, str):
             raise TypeError(f"Description must be a string")
-        elif len(value) < 3 or len(value) > 100:
-            raise ValueError(f"Description must be between 3 and 100 characters")
+        elif len(value) < 3 or len(value) > 500:
+            raise ValueError(f"Description must be between 3 and 500 characters")
         return value
 
     @validates("owner_id")

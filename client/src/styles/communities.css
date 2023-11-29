@@ -1,0 +1,14 @@
+/* community card */
+.com-card {
+  margin: 5px;
+  padding: 5px;
+  border: 1px solid black;
+}
+.com-name {
+  font-size: 2em;
+}
+.com-desc {
+  font-size: 1.25em;
+}
+.com-owner {
+}

@@ -59,7 +59,8 @@ if __name__ == "__main__":
         print("Seeding todos...")
         chores = [
             "do laundry",
-            "clean house, code",
+            "clean house",
+            "code",
             "run errands",
             "call mom",
             "run 5 miles",
@@ -89,7 +90,7 @@ if __name__ == "__main__":
                 entries.append(
                     Entry(
                         date=fake.date_time(),
-                        entry=fake.paragraph(nb_sentences=5),
+                        entry=fake.paragraph(nb_sentences=6),
                         journal_id=j.id,
                     )
                 )
@@ -100,11 +101,11 @@ if __name__ == "__main__":
         communities = []
         user_communities = []
         for u in users:
-            for i in range(3):
+            for i in range(2):
                 communities.append(
                     Community(
                         name=fake.catch_phrase(),
-                        description=fake.sentence(),
+                        description=fake.paragraph(nb_sentences=2),
                         owner_id=u.id,
                     )
                 )
@@ -112,6 +113,13 @@ if __name__ == "__main__":
                     UserCommunity(user_id=u.id, community_id=len(communities))
                 )
         db.session.add_all(communities)
+        db.session.commit()
+        for u in users:
+            for i in range(4):
+                com = rc(communities)
+                user_communities.append(
+                    UserCommunity(user_id=u.id, community_id=com.id)
+                )
         db.session.add_all(user_communities)
         db.session.commit()
 

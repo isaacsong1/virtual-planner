@@ -30,16 +30,16 @@ class Post(db.Model):
     def validate_title(self, _, value):
         if not isinstance(value, str):
             raise TypeError(f"Title must be a string")
-        elif len(value) < 2 or len(value) > 50:
-            raise ValueError(f"Title must be between 2 and 50 characters")
+        elif len(value) < 2 or len(value) > 80:
+            raise ValueError(f"Title must be between 2 and 80 characters")
         return value
 
     @validates("content")
     def validate_content(self, _, value):
         if not isinstance(value, str):
             raise TypeError(f"Content must be a string")
-        elif len(value) < 3 or len(value) > 3000:
-            raise ValueError(f"Content must be between 3 and 3000 characters")
+        elif len(value) < 3 or len(value) > 5000:
+            raise ValueError(f"Content must be between 3 and 5000 characters")
         return value
 
     # @validates("user_communities_id")

@@ -9,5 +9,5 @@ class PostSchema(ma.SQLAlchemySchema):
         load_instance = True
         fields = ["id", "title", "content", "user_communities_id"]
 
-    title = fields.String(required=True, validate=validate.Length(min=2, max=50))
-    content = fields.String(required=True, validate=validate.Length(min=3, max=3000))
+    title = fields.String(required=True, validate=validate.Length(min=2, max=80))
+    content = fields.String(required=True, validate=validate.Length(min=3, max=5000))

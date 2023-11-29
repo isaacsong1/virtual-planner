@@ -43,7 +43,7 @@ class CommunityById(Resource):
             try:
                 db.session.delete(community)
                 db.session.commit()
-                return {'message': f'Community {id} has been deleted'}, 204
+                return {'message': f'Community {id} has been deleted'}, 200
             except Exception as e:
                 db.session.rollback()
                 return {'error': str(e)}, 400

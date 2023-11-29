@@ -11,5 +11,5 @@ class TodoSchema(ma.SQLAlchemySchema):
 
     item = fields.String(required=True, validate=validate.Length(min=2, max=30))
     status = fields.Boolean(required=True)
-    # day = fields.Integer(required=True, validate=validate.Range(min=0, max=6))
+    date = fields.Date(format="%Y-%m-%d",required=True)
     # user_id = fields.Integer()

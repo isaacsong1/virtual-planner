@@ -69,7 +69,12 @@ if __name__ == "__main__":
         for u in users:
             for i in range(5):
                 todos.append(
-                    Todo(item=rc(chores), status=False, date=fake.date_time(), user_id=u.id)
+                    Todo(
+                        item=rc(chores),
+                        status=False,
+                        date=fake.date_this_decade(),
+                        user_id=u.id,
+                    )
                 )
         db.session.add_all(todos)
         db.session.commit()

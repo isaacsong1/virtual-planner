@@ -13,6 +13,14 @@ const Dashboard = () => {
     interests: "writing",
     bio: "Explain vote agreement law moment."
   }
+  const todoObj = (userTodos) => {
+    const todo_by_day = {}
+    for (const todo of userTodos) {
+      console.log(todo.day)
+    }
+
+    return
+  }
   const [isDay, setIsDay] = useState(true);
   const [todos, setTodos] = useState(null);
 
@@ -48,9 +56,9 @@ const userTodos = todos.filter((todo) => (
       <h1>Dashboard</h1>
       {isDay ? (
         <>
-          {console.log(userTodos)}
-          {console.log(user.id)}
-          {console.log(Date.now())}
+          {/* {console.log(userTodos)} */}
+          {/* {console.log(user.id)} */}
+          {todoObj(userTodos)}
           <Todo />
           <Journal />
         </>

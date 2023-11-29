@@ -15,7 +15,7 @@ from app_setup import app, db, ma, api
 # from models.post import Post
 # from schemas.post_schema import PostSchema
 # from models.todo import Todo
-# 
+#
 # from models.user_community import UserCommunity
 # from models.journal import Journal
 
@@ -29,6 +29,7 @@ from routes.todos import Todos
 from routes.user_communities import UserCommunities
 from routes.journal_by_id import JournalById
 from routes.entries import Entries
+from routes.todo_by_id import TodoById
 
 # Schemas
 
@@ -49,6 +50,7 @@ api.add_resource(Register, '/register')
 api.add_resource(Todos, '/todos')
 api.add_resource(JournalById, '/journal/<int:id>')
 # api.add_resource(Entries, '/journal/<int:id>')
+api.add_resource(TodoById, '/todos/<int:id>')
 
 
 # Views go here!

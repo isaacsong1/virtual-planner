@@ -65,12 +65,11 @@ if __name__ == "__main__":
             "run 5 miles",
             "meal prep",
         ]
-        days = [0, 1, 2, 3, 4, 5, 6]
         todos = []
         for u in users:
             for i in range(5):
                 todos.append(
-                    Todo(item=rc(chores), status=False, day=rc(days), user_id=u.id)
+                    Todo(item=rc(chores), status=False, date=fake.date_time(), user_id=u.id)
                 )
         db.session.add_all(todos)
         db.session.commit()

@@ -12,7 +12,6 @@ class Entries(Resource):
             data = request.json
             entry_schema.validate(data)
             new_entry = entry_schema.load(data)
-            import ipdb; ipdb.set_trace()
             db.session.add(new_entry)
             db.session.commit()
         except Exception as e:

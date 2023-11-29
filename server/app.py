@@ -30,6 +30,7 @@ from routes.user_communities import UserCommunities
 from routes.journal_by_id import JournalById
 from routes.entries import Entries
 from routes.todo_by_id import TodoById
+from routes.login import Login
 
 # Schemas
 
@@ -51,6 +52,7 @@ api.add_resource(Todos, '/todos')
 api.add_resource(JournalById, '/journal/<int:id>')
 # api.add_resource(Entries, '/journal/<int:id>')
 api.add_resource(TodoById, '/todos/<int:id>')
+api.add_resource(Login, '/login')
 
 
 # Views go here!

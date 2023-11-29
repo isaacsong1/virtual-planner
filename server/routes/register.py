@@ -24,7 +24,7 @@ class Register(Resource):
             db.session.add(new_journal)
             db.session.commit()
             # Add user id to cookies
-            # session['user_id'] = new_user.id
+            session['user_id'] = new_user.id
             serialized_user = user_schema.dump(new_user)
             return serialized_user, 201
         except Exception as e:

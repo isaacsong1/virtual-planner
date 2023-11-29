@@ -31,6 +31,7 @@ from routes.journal_by_id import JournalById
 from routes.entries import Entries
 from routes.todo_by_id import TodoById
 from routes.login import Login
+from routes.logout import Logout
 
 # Schemas
 
@@ -53,6 +54,7 @@ api.add_resource(JournalById, '/journal/<int:id>')
 # api.add_resource(Entries, '/journal/<int:id>')
 api.add_resource(TodoById, '/todos/<int:id>')
 api.add_resource(Login, '/login')
+api.add_resource(Logout, '/logout')
 
 
 # Views go here!

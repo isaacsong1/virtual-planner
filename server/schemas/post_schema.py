@@ -7,7 +7,7 @@ class PostSchema(ma.SQLAlchemySchema):
     class Meta:
         model = Post
         load_instance = True
-        fields = ['id', 'title', 'content', 'user_communities_id']
+        fields = ["id", "title", "content", "user_communities_id"]
 
-    title = fields.String(required=True, validate=validate.Length(min=2, max=30))
+    title = fields.String(required=True, validate=validate.Length(min=2, max=50))
     content = fields.String(required=True, validate=validate.Length(min=3, max=3000))

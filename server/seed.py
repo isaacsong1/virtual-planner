@@ -33,24 +33,45 @@ if __name__ == "__main__":
         User.query.delete()
 
         print("Seeding users...")
+        hobbies = [
+            "hiking",
+            "running",
+            "reading",
+            "writing",
+            "fishing",
+            "video games",
+            "cooking",
+        ]
         users = []
-        for i in range(4):
+        for i in range(10):
             u = User(
-                    username=fake.first_name(),
-                    email=fake.email(),
-                    location=fake.first_name(),
-                    bio=fake.first_name(),
-                    interests=fake.first_name(),
-                )
+                username=fake.name(),
+                email=fake.email(),
+                location=fake.address(),
+                bio=fake.sentence(),
+                interests=rc(hobbies),
+            )
             u.password_hash = fake.first_name()
             users.append(u)
             db.session.add(u)
         db.session.commit()
 
         print("Seeding todos...")
+        chores = [
+            "do laundry",
+            "clean house, code",
+            "run errands",
+            "call mom",
+            "run 5 miles",
+            "meal prep",
+        ]
+        days = [0, 1, 2, 3, 4, 5, 6]
         todos = []
         for u in users:
-            todos.append(Todo(item=fake.first_name(), status=False, day=0, user_id=4))
+            for i in range(5):
+                todos.append(
+                    Todo(item=rc(chores), status=False, day=rc(days), user_id=u.id)
+                )
         db.session.add_all(todos)
         db.session.commit()
 
@@ -64,38 +85,48 @@ if __name__ == "__main__":
         print("Seeding entries...")
         entries = []
         for j in Journal.query:
-            entries.append(Entry(date=fake.date_time(), entry=fake.first_name(), journal_id=j.id))
+            for i in range(5):
+                entries.append(
+                    Entry(
+                        date=fake.date_time(),
+                        entry=fake.paragraph(nb_sentences=5),
+                        journal_id=j.id,
+                    )
+                )
         db.session.add_all(entries)
         db.session.commit()
 
-        print("Seeding communities...")
-        communities = []
-        for i in range(4):
-            communities.append(Community(name=fake.first_name(), description=fake.first_name(), owner_id=4))
-        db.session.add_all(communities)
-        db.session.commit()
-
         print("Seeding user_communities...")
-        user_communities = [
-            UserCommunity(user_id=users[1].id, community_id=communities[1].id),
-            UserCommunity(user_id=users[2].id, community_id=communities[2].id),
-            UserCommunity(user_id=users[3].id, community_id=communities[3].id),
-            UserCommunity(user_id=users[0].id, community_id=communities[0].id)
-        ]
+        communities = []
+        user_communities = []
+        for u in users:
+            for i in range(3):
+                communities.append(
+                    Community(
+                        name=fake.catch_phrase(),
+                        description=fake.sentence(),
+                        owner_id=u.id,
+                    )
+                )
+                user_communities.append(
+                    UserCommunity(user_id=u.id, community_id=len(communities))
+                )
+        db.session.add_all(communities)
         db.session.add_all(user_communities)
         db.session.commit()
 
         print("Seeding posts...")
         posts = []
         for u in user_communities:
-            uc = rc(user_communities)
-            posts.append(
-                Post(
-                    title=fake.first_name(),
-                    content=fake.first_name(),
-                    user_communities_id=uc.id,
+            for i in range(8):
+                uc = rc(user_communities)
+                posts.append(
+                    Post(
+                        title=fake.catch_phrase(),
+                        content=fake.paragraph(nb_sentences=3),
+                        user_communities_id=uc.id,
+                    )
                 )
-            )
         db.session.add_all(posts)
         db.session.commit()
 

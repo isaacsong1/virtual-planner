@@ -29,7 +29,10 @@ const App = () => {
     navigate(`/users/${12}/dashboard`);
   };
 
-  const ctx = {};
+  const ctx = {
+    user,
+    setUser,
+  };
 
   return (
     <div className="app">

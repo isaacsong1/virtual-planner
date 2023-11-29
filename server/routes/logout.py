@@ -1,0 +1,1 @@
+# delete method clearing the session cookies

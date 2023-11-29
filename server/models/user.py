@@ -4,6 +4,7 @@ from app_setup import db
 from sqlalchemy.ext.hybrid import hybrid_property
 from app_setup import bcrypt
 from sqlalchemy.ext.associationproxy import association_proxy
+from .user_community import UserCommunity
 
 
 class User(db.Model):
@@ -26,7 +27,8 @@ class User(db.Model):
     user_communities = db.relationship("UserCommunity", back_populates="user", cascade="all, delete-orphan")
     community = db.relationship("Community", back_populates="owner")
     #association
-    communities = association_proxy('user_communities', 'community')
+    # communities = association_proxy('user_communities', 'community')
+    communities = association_proxy('user_communities', 'community', creator=lambda community_obj: UserCommunity(community=community_obj))
 
     #validations
     @validates("username")

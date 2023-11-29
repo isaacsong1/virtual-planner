@@ -1,8 +1,9 @@
-from . import request, session, make_response, abort, g, Resource, ValidationError
+from . import request, Resource
 from models.user import User
 from schemas.user_schema import UserSchema
-from app import user_schema
-from app_setup import api, db
+from app_setup import db
+
+user_schema = UserSchema(session=db.session)
 
 # View Profile / Edit Profile Page Information
 class UserById(Resource):
@@ -33,10 +34,9 @@ class UserById(Resource):
             try:
                 db.session.delete(user)
                 db.session.commit()
-                return {'message': f'User {id} has been deleted'}, 204
+                return {'message': f'User {id} has been deleted'}, 200
             except Exception as e:
                 db.session.rollback()
                 return {'error': str(e)}, 400
         return {'error': 'Could not find user'}, 404
     
-api.add_resource(UserById, '/users/<int:id>')

@@ -4,3 +4,4 @@ from app_setup import api, db
 
 class Login(Resource):
     pass
+# Use authenticate from user model with a post

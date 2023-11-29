@@ -1,12 +1,13 @@
-from . import request, session, make_response, abort, g, Resource, ValidationError
+from . import Resource
 from models.user import User
-from app import user_schema
-from app_setup import api, db
+from schemas.user_schema import UserSchema
+from app_setup import db
+
+users_schema = UserSchema(many=True, session=db.session)
 
 # Display Users in Community
 class Users(Resource):
     def get(self):
-        users = user_schema.dump(User.query)
+        users = users_schema.dump(User.query)
         return users, 200
     
-api.add_resource(Users, '/users')

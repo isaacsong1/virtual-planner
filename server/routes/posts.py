@@ -16,12 +16,18 @@ class Posts(Resource):
         posts = posts_schema.dump(Post.query.filter_by(user_communities_id = uc_id))
         return posts, 200
 
-    def post(self):
-        try:
-            data = request.json
-            post_schema.validate(data)
-            new_post = post_schema.load(data)
-            db.session.add(new_post)
-            db.session.commit()
-        except Exception as e:
-            return {'error': str(e)}, 400
+    def post(self, id):
+        if uc_id := UserCommunity.query.filter_by(community_id = id).first().id:
+            try:
+                data = request.json
+                post_schema.validate(data)
+                data['user_communities_id'] = uc_id
+                new_post = post_schema.load(data)
+                db.session.add(new_post)
+                db.session.commit()
+                serialized_post = post_schema.dump(new_post)
+                return serialized_post, 201
+            except Exception as e:
+                db.session.rollback()
+                return {'error': str(e)}, 400
+        return {'error': 'Community not found'}

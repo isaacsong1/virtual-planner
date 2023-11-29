@@ -25,13 +25,18 @@ class Communities(Resource):
             db.session.commit()
             # Initialize new data object with community id and owner id
             uc_data = {'community_id': new_community.id, 'user_id':data.get('owner_id')}
-            new_uc = user_community_schema.load(uc_data)
-            # Add new user_community to user_communities table with our new data object
-            db.session.add(new_uc)
-            db.session.commit()
-            # Serialize the data and package your JSON response
-            serialized_community = community_schema.dump(new_community)
-            return serialized_community, 201
+            if not uc_data['user_id']:
+                db.session.delete(new_community)
+                db.session.commit()
+                return {'message': 'Community needs an owner'}, 400
+            else:
+                new_uc = user_community_schema.load(uc_data)
+                # Add new user_community to user_communities table with our new data object
+                db.session.add(new_uc)
+                db.session.commit()
+                # Serialize the data and package your JSON response
+                serialized_community = community_schema.dump(new_community)
+                return serialized_community, 201
         except Exception as e:
             db.session.rollback()
             return {'error': str(e)}, 400

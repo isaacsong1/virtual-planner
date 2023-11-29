@@ -19,7 +19,7 @@ class TodoById(Resource):
                 return todo_schema.dump(updated_todo), 200
             except Exception as e:
                 db.session.rollback()
-                return {error: str(e)}, 400
+                return {'error': str(e)}, 400
         return {'error': 'Todo not found'}, 404
 
     def delete(self, id):

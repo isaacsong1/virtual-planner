@@ -1,5 +1,6 @@
 from sqlalchemy.orm import validates
 import re
+from models.user import User
 from app_setup import db
 
 
@@ -27,6 +28,16 @@ class Todo(db.Model):
             raise TypeError(f"Item must be a string")
         elif len(value) < 2 or len(value) > 30:
             raise ValueError(f"Item must be between 2 and 30 characters")
+        return value
+    
+    @validates("user_id")
+    def validate_userid(self, _, value):
+        if not isinstance(value, int):
+            raise TypeError(f"User id must be an integer")
+        elif value < 1:
+            raise ValueError(f"User id must be a positive integer")
+        elif not db.session.get(User, value):
+            raise ValueError(f"User id has to correspond to an existing user")
         return value
 
     def __repr__(self):

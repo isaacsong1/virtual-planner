@@ -25,7 +25,7 @@ class User(db.Model):
     journal = db.relationship("Journal", back_populates="user", cascade="all, delete-orphan")
     todos = db.relationship("Todo", back_populates="user", cascade = "all, delete-orphan")
     user_communities = db.relationship("UserCommunity", back_populates="user", cascade="all, delete-orphan")
-    community = db.relationship("Community", back_populates="owner")
+    community = db.relationship("Community", back_populates="owner", cascade="all, delete-orphan")
     #association
     # communities = association_proxy('user_communities', 'community')
     communities = association_proxy('user_communities', 'community', creator=lambda community_obj: UserCommunity(community=community_obj))

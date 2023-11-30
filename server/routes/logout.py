@@ -8,5 +8,5 @@ class Logout(Resource):
         if session.get("user_id"):
             #remove user in session
             del session["user_id"]
-            return {'message': 'User has been logged out'}, 204
+            return {}, 204
         return {'error': "Unauthorized"}, 401

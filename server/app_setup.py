@@ -13,6 +13,7 @@ app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SQLALCHEMY_ECHO"] = True
+app.secret_key = os.environ.get("APP_SECRET")
 
 #! flask-sqlalchemy setup
 db = SQLAlchemy(app)

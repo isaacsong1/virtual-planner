@@ -16,6 +16,6 @@ class Login(Resource):
             if user and user.authenticate(data.get("password")):
                 session['user_id'] = user.id
                 return user_schema.dump(user), 200
-            return {'message': 'Invalid Credentials'}, 403
+            return {'error': 'Invalid Credentials'}, 403
         except Exception as e:
             return {'error': "Invalid Credentials"}, 403

@@ -1,0 +1,107 @@
+/* communities page */
+.coms-page {
+  padding: 0 2vw;
+}
+.coms-page-name,
+.com-page-name {
+  padding: 5px;
+  font-size: 2.25em;
+  text-align: center;
+}
+/* community card */
+.com-card {
+  /* margin: 5px; */
+  padding: 5px 10px;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid #1e90ff;
+  box-shadow: 2px 2px 4px #333;
+}
+.com-card:hover {
+  cursor: pointer;
+}
+.com-right {
+  padding: 5px;
+}
+.com-right div {
+  margin: 10px;
+}
+.com-name {
+  padding: 5px;
+  font-size: 2.25em;
+}
+.com-desc {
+  padding: 5px;
+  font-size: 1.25em;
+}
+.com-owner {
+  padding: 5px;
+  font-style: italic;
+  font-weight: 800;
+  font-size: 1.25em;
+}
+/* community page */
+.com-page {
+  padding: 0 2vw;
+  /* display: flex;
+  justify-content: space-between; */
+  /* padding: 2vw; */
+}
+.com-post-member {
+  display: flex;
+  justify-content: space-between;
+}
+.com-posts {
+  width: 65vw;
+}
+.com-members {
+  width: 25vw;
+  border: 1px solid #333;
+}
+/* post card */
+.post-card {
+  padding: 5px 10px;
+  margin-bottom: 5px;
+  border-bottom: 2px solid #1e90ff;
+  box-shadow: 2px 2px 4px #333;
+}
+.post-title {
+  padding: 5px;
+  font-size: 2.25em;
+}
+.post-content {
+  padding: 5px;
+  font-size: 1.25em;
+}
+.post-user {
+  float: right;
+  margin: 10px;
+}
+/* member card */
+.mem-card {
+  height: 100px;
+  padding: 10px;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid #1e90ff;
+}
+.mem-avatar {
+  float: left;
+  font-size: 75px;
+  margin: 0 1vw;
+}
+/* .mem-head {
+  display: flex;
+  justify-content: space-between;
+} */
+.mem-username {
+  font-size: 1.3em;
+  margin-bottom: 10px;
+}
+/* .mem-email {
+  float: right;
+} */
+/* .mem-bio {
+} */

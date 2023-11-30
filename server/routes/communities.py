@@ -2,17 +2,33 @@ from . import request, Resource
 from models.community import Community
 from schemas.community_schema import CommunitySchema
 from schemas.user_community_schema import UserCommunitySchema
+
+from schemas.user_schema import UserSchema  #!
 from app_setup import db
 
 community_schema = CommunitySchema(session=db.session)
 communities_schema = CommunitySchema(many=True, session=db.session)
 user_community_schema = UserCommunitySchema(session=db.session)
+user_schema = UserSchema(session=db.session)  #!
+
 
 class Communities(Resource):
     def get(self):
         communities = communities_schema.dump(Community.query)
-        return communities, 200
-    
+        #! ---
+        add_users = [
+            {
+                **c,
+                "users": [
+                    user_schema.dump(u)
+                    for u in db.session.get(Community, c.get("id")).users
+                ],
+            }
+            for c in communities
+        ]
+        #! ---
+        return add_users, 200
+
     def post(self):
         try:
             data = request.json
@@ -20,15 +36,18 @@ class Communities(Resource):
             community_schema.validate(data)
             # Deserialize the data with dump()
             new_community = community_schema.load(data)
-            # Add new community to communities table and assign ID 
+            # Add new community to communities table and assign ID
             db.session.add(new_community)
             db.session.commit()
             # Initialize new data object with community id and owner id
-            uc_data = {'community_id': new_community.id, 'user_id':data.get('owner_id')}
-            if not uc_data['user_id']:
+            uc_data = {
+                "community_id": new_community.id,
+                "user_id": data.get("owner_id"),
+            }
+            if not uc_data["user_id"]:
                 db.session.delete(new_community)
                 db.session.commit()
-                return {'message': 'Community needs an owner'}, 400
+                return {"message": "Community needs an owner"}, 400
             else:
                 new_uc = user_community_schema.load(uc_data)
                 # Add new user_community to user_communities table with our new data object
@@ -39,5 +58,4 @@ class Communities(Resource):
                 return serialized_community, 201
         except Exception as e:
             db.session.rollback()
-            return {'error': str(e)}, 400
-    
+            return {"error": str(e)}, 400

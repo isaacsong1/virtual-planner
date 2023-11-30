@@ -2,6 +2,7 @@ from . import request, Resource
 from models.post import Post
 from schemas.post_schema import PostSchema
 from models.user_community import UserCommunity
+from schemas.user_schema import UserSchema  #!
 from app_setup import db
 
 # patch method to update an existing post within a community
@@ -9,13 +10,18 @@ from app_setup import db
 
 post_schema = PostSchema(session=db.session)
 posts_schema = PostSchema(many=True, session=db.session)
+user_schema = UserSchema(session=db.session)  #!
+
 
 class PostById(Resource):
     def get(self, id):
         if post := db.session.get(Post, id):
             post_schema = PostSchema()
-            return post_schema.dump(post), 200
-        return {'error': 'Post not found'}, 404
+            return {
+                "post": post_schema.dump(post),
+                "user": user_schema.dump(post.user),
+            }, 200
+        return {"error": "Post not found"}, 404
 
     def patch(self, id):
         if post := db.session.get(Post, id):
@@ -30,16 +36,16 @@ class PostById(Resource):
                 return post_schema.dump(updated_post), 200
             except Exception as e:
                 db.session.rollback()
-                return {'error': str(e)}, 400
-        return {'error': 'Could not find post'}, 404
+                return {"error": str(e)}, 400
+        return {"error": "Could not find post"}, 404
 
     def delete(self, id):
         if post := db.session.get(Post, id):
             try:
                 db.session.delete(post)
                 db.session.commit()
-                return {'message': f'Post {id} has been deleted'}, 200
+                return {"message": f"Post {id} has been deleted"}, 200
             except Exception as e:
                 db.session.rollback()
-                return {'error': str(e)}, 400
-        return {'error': 'Could not find post'}, 404
+                return {"error": str(e)}, 400
+        return {"error": "Could not find post"}, 404

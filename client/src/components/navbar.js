@@ -17,7 +17,7 @@ const Navbar = ({user, updateUser, handleNewAlert}) => {
         <NavLink to={"/communities"}>Communities</NavLink>
       </div>
       <div>
-        <NavLink to={`/users/${user.id}/profile`}>Profile</NavLink>
+        <NavLink to={`/users/${user.id}/profile`}>View Profile</NavLink>
         <NavLink to={"/"} onClick={handleLogout} >Logout</NavLink>
       </div>
     </nav>

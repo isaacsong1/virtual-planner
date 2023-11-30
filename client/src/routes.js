@@ -21,6 +21,10 @@ const routes = [
         element: <HomePage />,
       },
       {
+        path: "/",
+        element: <Authentication />
+      },
+      {
         path: "/users/:id/dashboard",
         element: <Dashboard />,
       },

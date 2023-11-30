@@ -22,19 +22,18 @@ const App = () => {
     setAlert(alert)
   }, [])
 
-  const fetchDashboard = useCallback(() => {
-    fetch("/dashboard")
-    .then(resp => {
-      if (resp.ok) {
-        resp.json().then(setDashboard)
-      } else {
-        resp.json().then(handleNewAlert)
-      }
-    })
-    .catch(handleNewAlert)
-  }, [handleNewAlert])
-
   useEffect(() => {
+    const fetchDashboard = () => {
+      fetch("/dashboard")
+      .then(resp => {
+        if (resp.ok) {
+          resp.json().then(setDashboard)
+        } else {
+          resp.json().then(handleNewAlert)
+        }
+      })
+      .catch(handleNewAlert)
+    }
     if (!user) {
       fetch("/checksession")
       .then(resp => {
@@ -48,7 +47,7 @@ const App = () => {
     } else {
       fetchDashboard()
     }
-  }, [fetchDashboard, handleNewAlert, user])
+  }, [handleNewAlert, user])
 
   const ctx = { user, updateUser, handleNewAlert };
 

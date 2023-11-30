@@ -23,6 +23,7 @@ from app_setup import app, db, ma, api
 from routes.communities import Communities
 from routes.community_by_id import CommunityById
 from routes.journal_by_id import JournalById
+from routes.journal import Journals
 from routes.login import Login
 from routes.logout import Logout
 from routes.post_by_id import PostById
@@ -47,7 +48,8 @@ from routes.users import Users
 # Add resources
 api.add_resource(Communities, '/communities')
 api.add_resource(CommunityById, '/communities/<int:id>')
-api.add_resource(JournalById, '/journal/<int:id>')
+api.add_resource(JournalById, '/journals/<int:id>')
+api.add_resource(Journals, "/journals")
 api.add_resource(Login, '/login')
 api.add_resource(Logout, '/logout')
 api.add_resource(PostById, '/posts/<int:id>')

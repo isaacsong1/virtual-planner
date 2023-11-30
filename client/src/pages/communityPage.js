@@ -7,6 +7,7 @@ const CommunityPage = () => {
   const { id } = useParams();
   const [posts, setPosts] = useState([]);
   const [members, setMembers] = useState([]);
+  const [community, setCommunity] = useState({});
 
   useEffect(() => {
     const getCommunity = () => {
@@ -15,6 +16,7 @@ const CommunityPage = () => {
         .then((data) => {
           setPosts(data.posts);
           setMembers(data.users);
+          setCommunity(data.community);
         })
         .catch((err) => console.log(err));
     };
@@ -27,9 +29,11 @@ const CommunityPage = () => {
 
   return (
     <div>
-      <h1>Community By Id</h1>
-      <div className="posts">{allPosts}</div>
-      <div className="members">{allMembers}</div>
+      <div className="com-page-name">{community.name}</div>
+      <div className="com-page">
+        <div className="com-posts">{allPosts}</div>
+        <div className="com-members">{allMembers}</div>
+      </div>
     </div>
   );
 };

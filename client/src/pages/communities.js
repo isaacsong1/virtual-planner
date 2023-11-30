@@ -27,8 +27,8 @@ const Communities = () => {
   ));
 
   return (
-    <div>
-      <h1>Communities</h1>
+    <div className="coms-page">
+      <div className="coms-page-name">Virtual Planner Communities</div>
       <div className="add-com">
         {!showAdd ? (
           <div>

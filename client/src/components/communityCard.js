@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 const CommunityCard = ({ id, name, description, owner_id, users }) => {
   const navigate = useNavigate();
   const [owner, setOwner] = useState({});
-  const [members, setMembers] = useState(0);
 
   useEffect(() => {
     const getOwner = () => {

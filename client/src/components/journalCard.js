@@ -1,4 +1,4 @@
-const Journal = () => {
+const Entry = () => {
   return (
     <div>
       <h1>Journal</h1>
@@ -6,4 +6,4 @@ const Journal = () => {
   );
 };
 
-export default Journal;
+export default Entry;

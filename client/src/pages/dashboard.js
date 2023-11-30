@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useOutletContext } from 'react-router-dom';
 import Todo from "../components/todoCard";
-import Journal from "../components/journalCard";
+import Entry from "../components/journalCard";
 import {format, addDays} from 'date-fns';
 
 const Dashboard = () => {
@@ -9,6 +9,8 @@ const Dashboard = () => {
   const [isDay, setIsDay] = useState(true);
   const [todos, setTodos] = useState([]);
   const [journals, setJournals] = useState([])
+  const [entries, setEntries] = useState([])
+  const [userJournal, setUseJournal] = useState(null)
   const today = new Date()
   const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
@@ -22,21 +24,60 @@ const Dashboard = () => {
     bio: "Explain vote agreement law moment."
   }
 
-  //fetch all todos for the user
+  //fetch async
+  const fetchData = async () => {
+    try {
+      const todosResponse = await fetch("/todos")
+      const todosData = await todosResponse.json()
+      setTodos(todosData)
+
+      const journalsResponse = await fetch("/journals")
+      const journalsData = await journalsResponse.json()
+      setJournals(journalsData)
+
+      const foundJournal = journalsData.find((journal) => journal.user_id === user.id)
+      setUseJournal(foundJournal)
+
+      if (foundJournal) {
+        const entriesResponse = await fetch(`/journals/${foundJournal.id}`)
+        const entriesData = await entriesResponse.json()
+        setEntries(entriesData)
+      }
+
+    }
+    catch (error) {
+        console.log(error)
+      }
+  }
   useEffect(() => {
-    fetch("/todos")
-    .then((r) => r.json())
-    .then(setTodos)
-    .catch((e) => console.log(e))
-  }, []) //!does this need a specific dependency?
+    fetchData()
+  }, [])
+  //fetch all todos for the user
+  // useEffect(() => {
+  //   fetch("/todos")
+  //   .then((r) => r.json())
+  //   .then(setTodos)
+  //   .catch((e) => console.log(e))
+  // }, []) //!does this need a specific dependency?
 
   //fetch all journals
-  useEffect(() => {
-    fetch("/journals")
-    .then(r => r.json())
-    .then(setJournals)
-    .catch((e) => console.log(e))
-  }, [])
+  // useEffect(() => {
+  //   fetch("/journals")
+  //   .then(r => r.json())
+  //   .then(setJournals)
+  //   .catch((e) => console.log(e))
+  // }, [])
+
+  //grab only the journal with the right user_id
+  // const userJournal = journals.find((journal) => journal.user_id === user.id)
+
+  //fetch entries with journal id
+  // useEffect(() => {
+  //   fetch(`/journals/${userJournal.id}`)
+  //   .then((r) => r.json())
+  //   .then(setEntries)
+  //   .catch((e) => console.log(e))
+  // }, [userJournal])
 
   const createTodoObj = (todos, date) => {
     let todoDict = {}
@@ -61,8 +102,6 @@ const Dashboard = () => {
   //grab the dictionary
   const todoObj = createTodoObj(userTodos, today)
 
-  //grab only the journal with the right user_id
-  const userJournal = journals.find((journal) => journal.user_id === user.id)
 
 //! general
 //fetch journal and fetch entry for the user
@@ -74,7 +113,7 @@ const Dashboard = () => {
 //! todo component
 //POST need to include the date.now() feature to push in the current day 1 - 7
 
-
+console.log(entries)
 
 
 
@@ -86,7 +125,7 @@ const Dashboard = () => {
       {isDay ? (
         <>
           <Todo todoList={Object.values(todoObj)[0]}/>
-          <Journal journal = {userJournal}/>
+          <Entry journal = {userJournal}/>
         </>
       ) : (
         <>

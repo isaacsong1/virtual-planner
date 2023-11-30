@@ -1,7 +1,6 @@
-import { NavLink, useOutletContext } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
-const Navbar = ({user}) => {
-  // const { user } = useOutletContext();
+const Navbar = ({ user }) => {
   return (
     <nav className="navbar">
       <NavLink to={`/users/${user.id}/dashboard`}>Dashboard</NavLink>

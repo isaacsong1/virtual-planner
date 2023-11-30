@@ -17,19 +17,25 @@ class Community(db.Model):
     owner_id = db.Column(db.Integer, db.ForeignKey("users.id", ondelete="CASCADE"))
 
     # relationships
-    user_communities = db.relationship("UserCommunity", back_populates = "community", cascade="all, delete-orphan")
+    user_communities = db.relationship(
+        "UserCommunity", back_populates="community", cascade="all, delete-orphan"
+    )
     owner = db.relationship("User", back_populates="community")
 
     # associations
     # users = association_proxy("user_communities", "user")
-    users = association_proxy("user_communities", "user", creator=lambda user_obj: UserCommunity(user=user_obj))
+    users = association_proxy(
+        "user_communities",
+        "user",
+        creator=lambda user_obj: UserCommunity(user=user_obj),
+    )
 
     # validations
     @validates("name")
     def validate_name(self, _, value):
         if not isinstance(value, str):
             raise TypeError(f"Name must be a string")
-        elif len(value) < 2 or len(value) > 20:
+        elif len(value) < 2 or len(value) > 50:
             raise ValueError(f"Name must be between 2 and 20 characters")
         return value
 
@@ -40,7 +46,7 @@ class Community(db.Model):
         elif len(value) < 3 or len(value) > 100:
             raise ValueError(f"Description must be between 3 and 100 characters")
         return value
-    
+
     @validates("owner_id")
     def validate_ownerid(self, _, value):
         if not isinstance(value, int):

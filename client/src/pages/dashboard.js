@@ -49,35 +49,10 @@ const Dashboard = () => {
         console.log(error)
       }
   }
+  //useEffect to fetch data on page load
   useEffect(() => {
     fetchData()
   }, [])
-  //fetch all todos for the user
-  // useEffect(() => {
-  //   fetch("/todos")
-  //   .then((r) => r.json())
-  //   .then(setTodos)
-  //   .catch((e) => console.log(e))
-  // }, []) //!does this need a specific dependency?
-
-  //fetch all journals
-  // useEffect(() => {
-  //   fetch("/journals")
-  //   .then(r => r.json())
-  //   .then(setJournals)
-  //   .catch((e) => console.log(e))
-  // }, [])
-
-  //grab only the journal with the right user_id
-  // const userJournal = journals.find((journal) => journal.user_id === user.id)
-
-  //fetch entries with journal id
-  // useEffect(() => {
-  //   fetch(`/journals/${userJournal.id}`)
-  //   .then((r) => r.json())
-  //   .then(setEntries)
-  //   .catch((e) => console.log(e))
-  // }, [userJournal])
 
   const createTodoObj = (todos, date) => {
     let todoDict = {}
@@ -102,20 +77,9 @@ const Dashboard = () => {
   //grab the dictionary
   const todoObj = createTodoObj(userTodos, today)
 
-
-//! general
-//fetch journal and fetch entry for the user
-//filter entry by day, if day, month, yr matches today then pass info to journal component
-//!main display
-//display one todo card where the todo.day = date.now()
-//! alternative
-//display 7 todos with each day
-//! todo component
-//POST need to include the date.now() feature to push in the current day 1 - 7
-
-console.log(entries)
-
-
+  //today's entry if it exists
+  // const todayEntry = entries.find((entry) => entry.date === format(today, "yyyy-MM-dd")) //! actual code to uncomment
+  const todayEntry = entries.find((entry) => entry.date === "2023-11-30") //just for testing purposes
 
   return (
     <div>
@@ -125,7 +89,7 @@ console.log(entries)
       {isDay ? (
         <>
           <Todo todoList={Object.values(todoObj)[0]}/>
-          <Entry journal = {userJournal}/>
+          <Entry entry = {todayEntry}/>
         </>
       ) : (
         <>

@@ -1,54 +1,69 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import Navbar from "./components/navbar";
-import Snackbar from "./components/snackbar";
-import Footer from "./components/footer";
+// import Navbar from "./components/navbar";
+// import Snackbar from "./components/snackbar";
+// import Footer from "./components/footer";
 import HomePage from "./pages/homePage";
+// import Register from "./pages/register";
+import Dashboard from "./pages/dashboard";
+import Authentication from "./pages/authentication";
 
 const App = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);
   const [alert, setAlert] = useState(null);
   const [alertType, setAlertType] = useState("");
+  const [dashboard, setDashboard] = useState(null)
+  const [user, setUser] = useState(null);
+  // const history = useHistory();
+
+  const updateUser = (user) => setUser(user)
+
+  const handleNewAlert = useCallback((alert) => {
+    setAlert(alert)
+  }, [])
 
   useEffect(() => {
-    const getData = () => {
-      fetch("")
-        .then((resp) => resp.json())
-        .then()
-        .catch((err) => {
-          setAlert(err.error);
-          setAlertType("error");
-        });
-    };
-    getData();
-  }, []);
+    const fetchDashboard = () => {
+      fetch("/dashboard")
+      .then(resp => {
+        if (resp.ok) {
+          resp.json().then(setDashboard)
+        } else {
+          resp.json().then(handleNewAlert)
+        }
+      })
+      .catch(handleNewAlert)
+    }
+    if (!user) {
+      fetch("/checksession")
+      .then(resp => {
+        if (resp.ok) {
+          resp.json().then(updateUser).then(fetchDashboard)
+        } else {
+          resp.json().then(errorObj => handleNewAlert(errorObj.error))
+        }
+      })
+      .catch(handleNewAlert)
+    } else {
+      fetchDashboard()
+    }
+  }, [handleNewAlert, user])
 
-  const authUser = () => {
-    setUser({ id: 7 });
-    navigate(`/users/${7}/dashboard`);
-  };
+  const ctx = { user, updateUser, handleNewAlert };
 
-  const ctx = {
-    user,
-  };
-
-  if (!user) {
-    return <HomePage authUser={authUser} />;
-  } else {
-    return (
-      <div className="app">
-        <Navbar />
-        <main className="container">
-          {alert && <Snackbar />}
-          <div className="outlet">
-            <Outlet context={ctx} />
-          </div>
-          <Footer />
-        </main>
-      </div>
-    );
-  }
+  if (!user) return (
+    <>
+      <HomePage />
+      <Authentication updateUser={updateUser} handleNewAlert={handleNewAlert} />
+    </>
+  ) 
+  return (
+    <div className="app">
+      <Dashboard />
+      <Outlet context={ctx} />
+    </div>
+  )
+  {/*alert && <Snackbar />*/}
 };
 
 export default App;

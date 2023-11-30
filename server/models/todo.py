@@ -11,7 +11,7 @@ class Todo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     item = db.Column(db.String, nullable=False)
     status = db.Column(db.Boolean)
-    day = db.Column(db.Integer, nullable=False)
+    date = db.Column(db.Date, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
     # relationships
@@ -29,7 +29,7 @@ class Todo(db.Model):
         elif len(value) < 2 or len(value) > 30:
             raise ValueError(f"Item must be between 2 and 30 characters")
         return value
-    
+
     @validates("user_id")
     def validate_userid(self, _, value):
         if not isinstance(value, int):

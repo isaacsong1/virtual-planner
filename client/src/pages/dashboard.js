@@ -8,6 +8,7 @@ const Dashboard = () => {
   //const { user } = useOutletContext()
   const [isDay, setIsDay] = useState(true);
   const [todos, setTodos] = useState([]);
+  const [journals, setJournals] = useState([])
   const today = new Date()
   const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
@@ -21,6 +22,21 @@ const Dashboard = () => {
     bio: "Explain vote agreement law moment."
   }
 
+  //fetch all todos for the user
+  useEffect(() => {
+    fetch("/todos")
+    .then((r) => r.json())
+    .then(setTodos)
+    .catch((e) => console.log(e))
+  }, []) //!does this need a specific dependency?
+
+  //fetch all journals
+  useEffect(() => {
+    fetch("/journals")
+    .then(r => r.json())
+    .then(setJournals)
+    .catch((e) => console.log(e))
+  }, [])
 
   const createTodoObj = (todos, date) => {
     let todoDict = {}
@@ -45,15 +61,8 @@ const Dashboard = () => {
   //grab the dictionary
   const todoObj = createTodoObj(userTodos, today)
 
-//fetch all todos for the user
-  useEffect(() => {
-    fetch("/todos")
-    .then((r) => r.json())
-    .then(setTodos)
-    .catch((e) => console.log(e))
-  }, []) //! dependency on user changing
-
-//fetch
+  //grab only the journal with the right user_id
+  const userJournal = journals.find((journal) => journal.user_id === user.id)
 
 //! general
 //fetch journal and fetch entry for the user
@@ -77,7 +86,7 @@ const Dashboard = () => {
       {isDay ? (
         <>
           <Todo todoList={Object.values(todoObj)[0]}/>
-          <Journal />
+          <Journal journal = {userJournal}/>
         </>
       ) : (
         <>

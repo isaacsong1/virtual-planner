@@ -2,9 +2,15 @@ import { useEffect, useState } from "react";
 import CommunityCard from "../components/communityCard";
 import "../styles/communities.css";
 
+const initialValue = {
+  name: "",
+  description: "",
+};
+
 const Communities = () => {
   const [communities, setCommunities] = useState([]);
   const [showAdd, setShowAdd] = useState(false);
+  const [formData, setFormData] = useState(initialValue);
 
   useEffect(() => {
     const getCommunities = () => {
@@ -17,8 +23,22 @@ const Communities = () => {
   }, []);
 
   const handleClick = () => setShowAdd(true);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
   const handleSubmit = (e) => {
+    //! add new community (POST)
     e.preventDefault();
+    fetch("/communities", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
     setShowAdd(false);
   };
 
@@ -29,18 +49,30 @@ const Communities = () => {
   return (
     <div className="coms-page">
       <div className="coms-page-name">Virtual Planner Communities</div>
-      <div className="add-com">
+      <div>
         {!showAdd ? (
-          <div>
+          <div className="add-com">
             <button onClick={handleClick}>Start New Community</button>
           </div>
         ) : (
           <div>
             <form onSubmit={handleSubmit}>
-              <label for="name">Name:</label>
-              <input type="text" id="name" />
+              <label htmlFor="name">Name:</label>
+              <input
+                id="name"
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+              />
               <label for="description">Description:</label>
-              <input type="text" id="description" />
+              <input
+                id="description"
+                type="text"
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+              />
               <input type="submit" value="Add New" />
             </form>
           </div>

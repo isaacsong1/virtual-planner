@@ -43,9 +43,14 @@
 }
 /* community page */
 .com-page {
+  padding: 0 2vw;
+  /* display: flex;
+  justify-content: space-between; */
+  /* padding: 2vw; */
+}
+.com-post-member {
   display: flex;
   justify-content: space-between;
-  padding: 2vw;
 }
 .com-posts {
   width: 65vw;
@@ -98,5 +103,5 @@
 /* .mem-email {
   float: right;
 } */
-.mem-bio {
-}
+/* .mem-bio {
+} */

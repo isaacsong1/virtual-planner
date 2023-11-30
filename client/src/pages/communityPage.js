@@ -8,6 +8,7 @@ const CommunityPage = () => {
   const [posts, setPosts] = useState([]);
   const [members, setMembers] = useState([]);
   const [community, setCommunity] = useState({});
+  const [showAdd, setShowAdd] = useState(false);
 
   useEffect(() => {
     const getCommunity = () => {
@@ -23,14 +24,39 @@ const CommunityPage = () => {
     getCommunity();
   }, []);
 
+  const handleClick = () => setShowAdd(true);
+
+  const handleSubmit = (e) => {
+    //! submit new post (POST)
+    e.preventDefault();
+    setShowAdd(false);
+  };
+
   const allPosts = posts.map((post) => <PostCard key={post.id} {...post} />);
 
   const allMembers = members.map((mem) => <MemberCard key={mem.id} {...mem} />);
 
   return (
-    <div>
+    <div className="com-page">
       <div className="com-page-name">{community.name}</div>
-      <div className="com-page">
+      <div>
+        {!showAdd ? (
+          <div className="add-com">
+            <button onClick={handleClick}>Add Post</button>
+          </div>
+        ) : (
+          <div>
+            <form onSubmit={handleSubmit}>
+              <label for="title">Title:</label>
+              <input type="text" id="title" />
+              <label for="content">Content:</label>
+              <input type="text" id="content" />
+              <input type="submit" value="Post" />
+            </form>
+          </div>
+        )}
+      </div>
+      <div className="com-post-member">
         <div className="com-posts">{allPosts}</div>
         <div className="com-members">{allMembers}</div>
       </div>

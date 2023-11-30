@@ -3,7 +3,6 @@ import React, {useState} from 'react';
 const TodoItem = ({todo, onUpdateTodo}) => {
   const [isEditing, setIsEditing] = useState(false)
   const [editedTodoItem, setEditedTodoItem] = useState(todo.item)
-  console.log(editedTodoItem)
 
   //when todo item is double clicked, editing mode triggered
   const handleDoubleClick = () => {
@@ -12,7 +11,6 @@ const TodoItem = ({todo, onUpdateTodo}) => {
   //store the value of the edited todo
   const handleEditTodo = (e) => {
     setEditedTodoItem(e.target.value)
-    console.log(e.target.value)
   }
   //patch when the user clicks away
   const handleBlur = () => {
@@ -53,8 +51,10 @@ const TodoItem = ({todo, onUpdateTodo}) => {
   //!needs testing after post request
   const handleDelete = () => {
     fetch(`/todos/${todo.id}`, {method: "DELETE"})
-    .then(r => r.json())
-    .then(onUpdateTodo())
+    .then(() => {
+      onUpdateTodo()
+    })
+    .catch((e) => console.log(e))
   }
 
   return (

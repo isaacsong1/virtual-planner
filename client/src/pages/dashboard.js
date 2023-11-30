@@ -84,8 +84,8 @@ const Dashboard = () => {
   const todoObj = createTodoObj(userTodos, today)
 
   //today's entry if it exists
-  // const todayEntry = entries.find((entry) => entry.date === format(today, "yyyy-MM-dd")) //! actual code to uncomment
-  const todayEntry = entries.find((entry) => entry.date === "2023-11-30") //just for testing purposes
+  const todayEntry = entries.find((entry) => entry.date === format(today, "yyyy-MM-dd")) //! actual code to uncomment
+  // const todayEntry = entries.find((entry) => entry.date === "2023-11-30") //just for testing purposes
 
   return (
     <div>
@@ -95,18 +95,18 @@ const Dashboard = () => {
       <button onClick={toggleDisplay}>{isDay ? "Week View" : "Day View"}</button>
       {isDay ? (
         <>
-          <Todo todoList={Object.values(todoObj)[0]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
+          <Todo day={Object.keys(todoObj)[0]} todoList={Object.values(todoObj)[0]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
           <Entry entry = {todayEntry}/>
         </>
       ) : (
         <>
-          <Todo todoList={Object.values(todoObj)[0]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
-          <Todo todoList={Object.values(todoObj)[1]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
-          <Todo todoList={Object.values(todoObj)[2]} onUpdateTodo={() => setTodoChange((status) => !status)} />
-          <Todo todoList={Object.values(todoObj)[3]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
-          <Todo todoList={Object.values(todoObj)[4]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
-          <Todo todoList={Object.values(todoObj)[5]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
-          <Todo todoList={Object.values(todoObj)[6]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
+          <Todo day={Object.keys(todoObj)[0]} todoList={Object.values(todoObj)[0]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
+          <Todo day={Object.keys(todoObj)[1]} todoList={Object.values(todoObj)[1]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
+          <Todo day={Object.keys(todoObj)[2]} todoList={Object.values(todoObj)[2]} onUpdateTodo={() => setTodoChange((status) => !status)} />
+          <Todo day={Object.keys(todoObj)[3]} todoList={Object.values(todoObj)[3]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
+          <Todo day={Object.keys(todoObj)[4]} todoList={Object.values(todoObj)[4]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
+          <Todo day={Object.keys(todoObj)[5]} todoList={Object.values(todoObj)[5]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
+          <Todo day={Object.keys(todoObj)[6]} todoList={Object.values(todoObj)[6]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
         </>
       )}
     </div>

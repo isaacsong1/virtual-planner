@@ -92,7 +92,7 @@ if __name__ == "__main__":
             for i in range(5):
                 entries.append(
                     Entry(
-                        date=fake.date_time(),
+                        date=fake.date_this_decade(),
                         entry=fake.paragraph(nb_sentences=5),
                         journal_id=j.id,
                     )

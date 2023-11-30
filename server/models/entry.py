@@ -9,7 +9,7 @@ class Entry(db.Model):
 
     # Columns for entries Table
     id = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.DateTime, server_default=db.func.now())
+    date = db.Column(db.Date, server_default=db.func.current_date())
     entry = db.Column(db.String, nullable=False)
     journal_id = db.Column(db.Integer, db.ForeignKey("journals.id"))
 
@@ -23,7 +23,7 @@ class Entry(db.Model):
     #         import ipdb; ipdb.set_trace()
     #         return value
     #     raise ValueError('Only one entry allowed')
-    
+
     @validates("entry")
     def validate_entry(self, _, value):
         if not isinstance(value, str):

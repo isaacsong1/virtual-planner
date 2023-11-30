@@ -1,5 +1,6 @@
 import App from "./App";
 import HomePage from "./pages/homePage";
+import Authentication from "./pages/authentication";
 import Error404 from "./pages/error404";
 import Login from "./pages/login";
 import Register from "./pages/register";
@@ -20,12 +21,8 @@ const routes = [
         element: <HomePage />,
       },
       {
-        path: "/login",
-        element: <Login />,
-      },
-      {
-        path: "/register",
-        element: <Register />,
+        path: "/users/:id/dashboard",
+        element: <Dashboard />,
       },
       {
         path: "/communities",
@@ -34,10 +31,6 @@ const routes = [
       {
         path: "/users/:id/profile",
         element: <Profile />,
-      },
-      {
-        path: "/users/:id/dashboard",
-        element: <Dashboard />,
       },
       {
         path: "/users/:id/journals",

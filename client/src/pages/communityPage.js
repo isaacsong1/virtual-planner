@@ -32,7 +32,7 @@ const CommunityPage = () => {
         });
     };
     getCommunity();
-  }, [id]);
+  }, [id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleClick = () => setShowAdd(true);
 
@@ -43,27 +43,35 @@ const CommunityPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(community);
-    const ucid = community.user_communities.filter(
-      (obj) => (obj.user_id = community.owner_id)
-    );
-    console.log(ucid);
-    // fetch("/posts", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({ ...formData, user_communities_id: '' }),
-    // })
-    //   .then((res) => res.json())
-    //   .then(() => {
-    //     // setFormData(initialValue);
-    //     // setShowAdd(false);
-    //   })
-    //           .catch((err) => {
-    //   handleNewAlert(err.error);
-    //   handleAlertType("error");
-    // });
+    console.log(formData);
+    fetch(`/communities/${id}/posts`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((res) => {
+        console.log(res);
+        if (res.ok) {
+          res.json().then((data) => {
+            setPosts([...posts, data]);
+            setFormData(initialValue);
+            setShowAdd(false);
+            handleNewAlert("New Post Submitted!");
+            handleAlertType("success");
+          });
+        } else {
+          res.json().then((errorObj) => {
+            handleNewAlert(errorObj.error);
+            handleAlertType("error");
+          });
+        }
+      })
+      .catch((err) => {
+        handleNewAlert(err.error);
+        handleAlertType("error");
+      });
   };
 
   const allPosts = posts.map((post) => <PostCard key={post.id} {...post} />);
@@ -82,9 +90,21 @@ const CommunityPage = () => {
           <div>
             <form onSubmit={handleSubmit}>
               <label htmlFor="title">Title:</label>
-              <input type="text" id="title" />
+              <input
+                id="title"
+                type="text"
+                name="title"
+                value={formData.title}
+                onChange={handleChange}
+              />
               <label htmlFor="content">Content:</label>
-              <input type="text" id="content" />
+              <input
+                id="content"
+                type="text"
+                name="content"
+                value={formData.content}
+                onChange={handleChange}
+              />
               <input type="submit" value="Post" />
             </form>
           </div>

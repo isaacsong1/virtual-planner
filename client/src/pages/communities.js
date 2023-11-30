@@ -43,12 +43,20 @@ const Communities = () => {
       },
       body: JSON.stringify({ ...formData, owner_id: user.id }),
     })
-      .then((res) => res.json())
-      .then(() => {
-        setFormData(initialValue);
-        setShowAdd(false);
-        handleNewAlert("New community added!");
-        handleAlertType("success");
+      .then((res) => {
+        if (res.ok) {
+          res.json().then(() => {
+            setFormData(initialValue);
+            setShowAdd(false);
+            handleNewAlert("New community added!");
+            handleAlertType("success");
+          });
+        } else {
+          res.json().then((errorObj) => {
+            handleNewAlert(errorObj.error);
+            handleAlertType("error");
+          });
+        }
       })
       .catch((err) => {
         handleNewAlert(err.error);

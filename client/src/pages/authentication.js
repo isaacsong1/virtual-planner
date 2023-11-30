@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import { useOutletContext } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
-// import * as snackbar from "snackbar";
 
 function Authentication({ updateUser, handleNewAlert, handleAlertType }) {
   const [signUp, setSignUp] = useState(false);
@@ -50,6 +48,8 @@ function Authentication({ updateUser, handleNewAlert, handleAlertType }) {
         .then((resp) => {
           if (resp.ok) {
             resp.json().then(updateUser);
+            handleNewAlert("Welcome!");
+            handleAlertType("success");
           } else {
             resp.json().then((errorObj) => {
               handleNewAlert(errorObj.error);

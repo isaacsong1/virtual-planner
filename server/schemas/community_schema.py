@@ -13,3 +13,12 @@ class CommunitySchema(ma.SQLAlchemySchema):
     name = fields.String(required=True, validate=validate.Length(min=2, max=80))
     description = fields.String(validate=validate.Length(min=3, max=500))
     user_communities = fields.List(fields.Nested(UserCommunitySchema))
+
+
+# crew_members = fields.Nested(
+#         CrewMemberSchema,
+#         only=("id", "name", "role"),
+#         exclude=("production",),
+#         many=True,
+#         dump_only=True
+#     )

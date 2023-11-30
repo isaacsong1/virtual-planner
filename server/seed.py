@@ -65,12 +65,16 @@ if __name__ == "__main__":
             "run 5 miles",
             "meal prep",
         ]
-        days = [0, 1, 2, 3, 4, 5, 6]
         todos = []
         for u in users:
             for i in range(5):
                 todos.append(
-                    Todo(item=rc(chores), status=False, day=rc(days), user_id=u.id)
+                    Todo(
+                        item=rc(chores),
+                        status=False,
+                        date=fake.date_this_decade(),
+                        user_id=u.id,
+                    )
                 )
         db.session.add_all(todos)
         db.session.commit()
@@ -88,7 +92,7 @@ if __name__ == "__main__":
             for i in range(5):
                 entries.append(
                     Entry(
-                        date=fake.date_time(),
+                        date=fake.date_this_decade(),
                         entry=fake.paragraph(nb_sentences=5),
                         journal_id=j.id,
                     )

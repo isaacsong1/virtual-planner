@@ -7,5 +7,3 @@ class JournalSchema(ma.SQLAlchemySchema):
         model = Journal
         load_instance = True
         fields = ['id', 'user_id']
-
-    

@@ -8,6 +8,10 @@ const Dashboard = () => {
   //const { user } = useOutletContext()
   const [isDay, setIsDay] = useState(true);
   const [todos, setTodos] = useState([]);
+  const today = new Date()
+  const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+
+  //temporary
   const user = {
     id: 1,
     username: "Daniel Williamson",
@@ -18,12 +22,11 @@ const Dashboard = () => {
   }
 
 
-  const createTodoObj = (todos) => {
-    const today = new Date()
+  const createTodoObj = (todos, date) => {
     let todoDict = {}
     //creates object where key is today + next 6 days
     for (let i = 0; i < 7; i++) {
-      const currentDate = addDays(today, i)
+      const currentDate = addDays(date, i)
       todoDict = {...todoDict, [format(currentDate, "yyyy-MM-dd")]: []}
     }
     //add corresponding todos
@@ -40,7 +43,7 @@ const Dashboard = () => {
     todo.user_id === user.id
   ))
   //grab the dictionary
-  const todoObj = createTodoObj(userTodos)
+  const todoObj = createTodoObj(userTodos, today)
 
 //fetch all todos for the user
   useEffect(() => {
@@ -50,11 +53,11 @@ const Dashboard = () => {
     .catch((e) => console.log(e))
   }, []) //! dependency on user changing
 
+//fetch
+
 //! general
 //fetch journal and fetch entry for the user
 //filter entry by day, if day, month, yr matches today then pass info to journal component
-//filter todos by user.id match with user_id
-//filter todos by day, useState to pass only that todo to the todo component
 //!main display
 //display one todo card where the todo.day = date.now()
 //! alternative
@@ -69,6 +72,8 @@ const Dashboard = () => {
   return (
     <div>
       <h1>Dashboard</h1>
+      <h2>{dayNames[today.getDay()]}</h2>
+      <h3>{format(today, "MM/dd/yyyy")}</h3>
       {isDay ? (
         <>
           <Todo todoList={Object.values(todoObj)[0]}/>

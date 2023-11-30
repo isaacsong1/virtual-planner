@@ -1,14 +1,30 @@
 /* community card */
 .com-card {
   margin: 5px;
+  padding: 5px 10px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid #1e90ff;
+  box-shadow: 2px 2px 4px #333;
+}
+.com-right {
   padding: 5px;
-  border: 1px solid black;
+}
+.com-right div {
+  margin: 10px;
 }
 .com-name {
-  font-size: 2em;
+  padding: 5px;
+  font-size: 2.25em;
 }
 .com-desc {
+  padding: 5px;
   font-size: 1.25em;
 }
 .com-owner {
+  padding: 5px;
+  font-style: italic;
+  font-weight: 800;
 }
+/* post card */
+/* member card */

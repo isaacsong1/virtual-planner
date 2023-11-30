@@ -29,6 +29,11 @@ class Community(db.Model):
         "user",
         creator=lambda user_obj: UserCommunity(user=user_obj),
     )
+    posts = association_proxy(
+        "user_communities",
+        "post",
+        creator=lambda post_obj: UserCommunity(post=post_obj),
+    )
 
     # validations
     @validates("name")

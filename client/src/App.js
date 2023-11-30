@@ -25,33 +25,30 @@ const App = () => {
   }, []);
 
   const authUser = () => {
-    setUser(true);
-    navigate(`/users/${12}/dashboard`);
+    setUser({ id: 7 });
+    navigate(`/users/${7}/dashboard`);
   };
 
   const ctx = {
     user,
-    setUser,
   };
 
-  return (
-    <div className="app">
-      {!user ? (
-        <HomePage authUser={authUser} />
-      ) : (
-        <>
-          <Navbar />
-          <main className="container">
-            {alert && <Snackbar />}
-            <div className="outlet">
-              <Outlet context={ctx} />
-            </div>
-            <Footer />
-          </main>
-        </>
-      )}
-    </div>
-  );
+  if (!user) {
+    return <HomePage authUser={authUser} />;
+  } else {
+    return (
+      <div className="app">
+        <Navbar />
+        <main className="container">
+          {alert && <Snackbar />}
+          <div className="outlet">
+            <Outlet context={ctx} />
+          </div>
+          <Footer />
+        </main>
+      </div>
+    );
+  }
 };
 
 export default App;

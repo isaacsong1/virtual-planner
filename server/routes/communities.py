@@ -2,17 +2,32 @@ from . import request, Resource
 from models.community import Community
 from schemas.community_schema import CommunitySchema
 from schemas.user_community_schema import UserCommunitySchema
+
+from schemas.user_schema import UserSchema  #!
 from app_setup import db
 
 community_schema = CommunitySchema(session=db.session)
 communities_schema = CommunitySchema(many=True, session=db.session)
 user_community_schema = UserCommunitySchema(session=db.session)
+user_schema = UserSchema(session=db.session)  #!
 
 
 class Communities(Resource):
     def get(self):
         communities = communities_schema.dump(Community.query)
-        return communities, 200
+        #! ---
+        add_users = [
+            {
+                **c,
+                "users": [
+                    user_schema.dump(u)
+                    for u in db.session.get(Community, c.get("id")).users
+                ],
+            }
+            for c in communities
+        ]
+        #! ---
+        return add_users, 200
 
     def post(self):
         try:

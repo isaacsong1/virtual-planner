@@ -5,7 +5,7 @@ import Entry from "../components/entry";
 import {format, addDays} from 'date-fns';
 
 const Dashboard = () => {
-  //const { user } = useOutletContext()
+  const { user } = useOutletContext();
   const [isDay, setIsDay] = useState(true);
   const [todos, setTodos] = useState([]);
   const [journals, setJournals] = useState([])
@@ -14,16 +14,6 @@ const Dashboard = () => {
   const [todoChange, setTodoChange] = useState(true)
   const today = new Date()
   const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-
-  //temporary
-  const user = {
-    id: 1,
-    username: "Daniel Williamson",
-    email: "hturner@example.org",
-    location: "California",
-    interests: "writing",
-    bio: "Explain vote agreement law moment."
-  }
 
   //toggle display
   const toggleDisplay = () => {
@@ -84,8 +74,7 @@ const Dashboard = () => {
   const todoObj = createTodoObj(userTodos, today)
 
   //today's entry if it exists
-  const todayEntry = entries.find((entry) => entry.date === format(today, "yyyy-MM-dd")) //! actual code to uncomment
-  // const todayEntry = entries.find((entry) => entry.date === "2023-11-30") //just for testing purposes
+  const todayEntry = entries.find((entry) => entry.date === format(today, "yyyy-MM-dd"))
 
   return (
     <div>

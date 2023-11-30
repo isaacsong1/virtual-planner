@@ -48,7 +48,6 @@ const TodoItem = ({todo, onUpdateTodo}) => {
       .catch((e) => console.log(e))
   }
   //delete when clicked
-  //!needs testing after post request
   const handleDelete = () => {
     fetch(`/todos/${todo.id}`, {method: "DELETE"})
     .then(() => {

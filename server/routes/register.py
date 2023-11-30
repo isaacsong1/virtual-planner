@@ -28,5 +28,6 @@ class Register(Resource):
             serialized_user = user_schema.dump(new_user)
             return serialized_user, 201
         except Exception as e:
-            db.session.rollback()
+            db.session.delete(new_user)
+            db.session.commit()
             return {'error': str(e)}, 400

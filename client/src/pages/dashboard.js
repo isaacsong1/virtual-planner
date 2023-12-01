@@ -10,8 +10,10 @@ const Dashboard = () => {
   const [todos, setTodos] = useState([]);
   const [journals, setJournals] = useState([])
   const [entries, setEntries] = useState([])
-  const [userJournal, setUseJournal] = useState(null)
+  const [userJournal, setUserJournal] = useState(null)
   const [todoChange, setTodoChange] = useState(true)
+  const [entryChange, setEntryChange] = useState(true)
+  const [loading, setLoading] = useState(true)
   const today = new Date()
   const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
@@ -32,23 +34,24 @@ const Dashboard = () => {
       setJournals(journalsData)
 
       const foundJournal = journalsData.find((journal) => journal.user_id === user.id)
-      setUseJournal(foundJournal)
+      setUserJournal(foundJournal)
 
       if (foundJournal) {
         const entriesResponse = await fetch(`/journals/${foundJournal.id}`)
         const entriesData = await entriesResponse.json()
         setEntries(entriesData)
       }
-
+    setLoading(false)
     }
     catch (error) {
         console.log(error)
+        setLoading(false)
       }
   }
   //useEffect to fetch data on page load
   useEffect(() => {
     fetchData()
-  }, [todoChange])
+  }, [todoChange, entryChange])
 
   const createTodoObj = (todos, date) => {
     let todoDict = {}
@@ -80,24 +83,31 @@ const Dashboard = () => {
     <div>
       <h1>Dashboard</h1>
       <h2>{dayNames[today.getDay()]}</h2>
-      <h3>{format(today, "MM/dd/yyyy")}</h3>
+      <h3>{format(today, "MM/dd/yy")}</h3>
       <button onClick={toggleDisplay}>{isDay ? "Week View" : "Day View"}</button>
-      {isDay ? (
+      {loading ? (
+        <p>Loading...</p>
+      ): (
         <>
-          <Todo day={Object.keys(todoObj)[0]} todoList={Object.values(todoObj)[0]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
-          <Entry entry = {todayEntry}/>
-        </>
-      ) : (
-        <>
-          <Todo day={Object.keys(todoObj)[0]} todoList={Object.values(todoObj)[0]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
-          <Todo day={Object.keys(todoObj)[1]} todoList={Object.values(todoObj)[1]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
-          <Todo day={Object.keys(todoObj)[2]} todoList={Object.values(todoObj)[2]} onUpdateTodo={() => setTodoChange((status) => !status)} />
-          <Todo day={Object.keys(todoObj)[3]} todoList={Object.values(todoObj)[3]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
-          <Todo day={Object.keys(todoObj)[4]} todoList={Object.values(todoObj)[4]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
-          <Todo day={Object.keys(todoObj)[5]} todoList={Object.values(todoObj)[5]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
-          <Todo day={Object.keys(todoObj)[6]} todoList={Object.values(todoObj)[6]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
+          {isDay ? (
+          <>
+            <Todo day={Object.keys(todoObj)[0]} todoList={Object.values(todoObj)[0]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
+            <Entry today ={today} journal ={userJournal} entry = {todayEntry} onEntryChange={() => setEntryChange((status) => !status)}/>
+          </>
+        ) : (
+          <>
+            <Todo day={Object.keys(todoObj)[0]} todoList={Object.values(todoObj)[0]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
+            <Todo day={Object.keys(todoObj)[1]} todoList={Object.values(todoObj)[1]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
+            <Todo day={Object.keys(todoObj)[2]} todoList={Object.values(todoObj)[2]} onUpdateTodo={() => setTodoChange((status) => !status)} />
+            <Todo day={Object.keys(todoObj)[3]} todoList={Object.values(todoObj)[3]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
+            <Todo day={Object.keys(todoObj)[4]} todoList={Object.values(todoObj)[4]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
+            <Todo day={Object.keys(todoObj)[5]} todoList={Object.values(todoObj)[5]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
+            <Todo day={Object.keys(todoObj)[6]} todoList={Object.values(todoObj)[6]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
+          </>
+        )}
         </>
       )}
+
     </div>
   );
 };

@@ -5,58 +5,67 @@ import * as yup from "yup"
 // import * as snackbar from "snackbar";
 import "../styles/authentication.css";
 
-function Authentication({updateUser, handleNewAlert}) {
-    const [signUp, setSignUp] = useState(false);
-    // const history = useHistory();
+function Authentication({ updateUser, handleNewAlert, handleAlertType }) {
+  const [signUp, setSignUp] = useState(false);
+  // const history = useHistory();
 
-    const handleClick = () => setSignUp((signUp) => !signUp)
+  const handleClick = () => setSignUp((signUp) => !signUp);
 
-    const signUpSchema = yup.object().shape({
-        username: yup.string()
-            .required("Please enter a username"),
-        email: yup.string()
-            .email("Must be a valid email")
-            .required("Please enter a user email"),
-        password: yup.string()
-            .required('Please enter a user password') 
-            .min(12, 'Password is too short - should be 12 characters minimum.')
-    })
+  const signUpSchema = yup.object().shape({
+    username: yup.string().required("Please enter a username"),
+    email: yup
+      .string()
+      .email("Must be a valid email")
+      .required("Please enter a user email"),
+    password: yup
+      .string()
+      .required("Please enter a user password")
+      .min(12, "Password is too short - should be 12 characters minimum."),
+  });
 
-    const logInSchema = yup.object().shape({
-        email: yup.string()
-            .email("Must be a valid email")
-            .required("Please enter a user email"),
-        password: yup.string()
-            .required('Please enter a password') 
-    })
+  const logInSchema = yup.object().shape({
+    email: yup
+      .string()
+      .email("Must be a valid email")
+      .required("Please enter a user email"),
+    password: yup.string().required("Please enter a password"),
+  });
 
-    const url = signUp ? "/register" : "/login"
+  const url = signUp ? "/register" : "/login";
 
-    const formik = useFormik({
-        initialValues: {
-            username: '',
-            email: '',
-            password: ''
+  const formik = useFormik({
+    initialValues: {
+      username: "",
+      email: "",
+      password: "",
+    },
+    validationSchema: signUp ? signUpSchema : logInSchema,
+    onSubmit: (values) => {
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-        validationSchema: signUp ? signUpSchema : logInSchema,
-        onSubmit: (values) => {
-            fetch(url, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(values)
-            })
-            .then(resp => {
-                if (resp.ok) { 
-                    resp.json().then(updateUser)
-                } else {
-                    resp.json().then(errorObj => handleNewAlert(errorObj.error))
-                }
-            })
-            .catch(handleNewAlert)
-        }
-    })
+        body: JSON.stringify(values),
+      })
+        .then((resp) => {
+          if (resp.ok) {
+            resp.json().then(updateUser);
+            handleNewAlert("Welcome!");
+            handleAlertType("success");
+          } else {
+            resp.json().then((errorObj) => {
+              handleNewAlert(errorObj.error);
+              handleAlertType("error");
+            });
+          }
+        })
+        .catch((err) => {
+          handleNewAlert(err.error);
+          handleAlertType("error");
+        });
+    },
+  });
 
     return (
         <div id="account-form">
@@ -95,4 +104,4 @@ function Authentication({updateUser, handleNewAlert}) {
     )
 }
 
-export default Authentication
+export default Authentication;

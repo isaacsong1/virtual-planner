@@ -22,8 +22,6 @@ const App = () => {
 
   const handleAlertType = (type) => setAlertType(type);
 
-  const handleAlertType = (type) => setAlertType(type);
-
   useEffect(() => {
     if (!user) {
       navigate("/");
@@ -36,8 +34,9 @@ const App = () => {
               .then(navigate(`/users/${user.id}/dashboard`));
           } else {
             resp.json().then((errorObj) => {
-              handleNewAlert(errorObj.error);
-              handleAlertType("error");
+              // handleNewAlert(errorObj.error);
+              // handleAlertType("error");
+              console.log('Not Authorized')
             });
           }
         })
@@ -64,7 +63,7 @@ const App = () => {
       )}
       <Authentication updateUser={updateUser} handleNewAlert={handleNewAlert} handleAlertType={handleAlertType} />
     </div>
-  ) 
+  )
   return (
     <div className="app">
       {alert && (

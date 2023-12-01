@@ -51,7 +51,7 @@ if __name__ == "__main__":
                 bio=fake.sentence(),
                 interests=rc(hobbies),
             )
-            u.password_hash = fake.first_name()
+            u.password_hash = "passwordpass"
             users.append(u)
             db.session.add(u)
         db.session.commit()

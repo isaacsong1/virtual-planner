@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useOutletContext, useParams  } from 'react-router-dom';
 import { useFormik } from "formik"
 import * as yup from "yup"
+import "../styles/profile.css";
 
 const Profile = () => {
   const [isEditting, setIsEditting] = useState(false);
@@ -53,30 +54,39 @@ const Profile = () => {
   })
 
   return (
-    <div>
-      <h1>{`${user.username}'s Profile`}</h1>
-      {user.id === parseInt(id) ? (isEditting ? null :  <button onClick={handleEdit} >Edit Profile</button>) : null}
-      {isEditting ? 
-        <form onSubmit={formik.handleSubmit}>
-          <label htmlFor='username'>Username</label>
-          <input type='text' name='username' value={formik.values.username} onChange={formik.handleChange} onBlur={formik.handleBlur} />
-          {formik.errors.username && formik.touched.username ? <div className="error-message show">{formik.errors.username}</div> : null}
-          <label htmlFor='location'>Location</label>
-          <input type='text' name='location' value={formik.values.location} onChange={formik.handleChange} onBlur={formik.handleBlur} />
-          {formik.errors.location && formik.touched.location ? <div className="error-message show">{formik.errors.location}</div> : null}
-          <label htmlFor='bio'>Bio</label>
-          <input type='text' name='bio' value={formik.values.bio} onChange={formik.handleChange} onBlur={formik.handleBlur} />
-          {formik.errors.bio && formik.touched.bio ? <div className="error-message show">{formik.errors.bio}</div> : null}
-          <input type='submit' value={'Save Profile'} />
-        </form>
-      :
-        <div>
-          <p>Username: {user.username}</p>
-          <p>Email: {user.email}</p>
-          <p>Location: {user.location}</p>
-          <p>Bio: {user.bio}</p>
-        </div> 
-      }
+    <div id='profile'>
+      <div id='profile-content'>
+        <h1>{`${user.username}'s Profile`}</h1>
+        {user.id === parseInt(id) ? (isEditting ? null :  <button onClick={handleEdit} >Edit Profile</button>) : null}
+        {isEditting ? 
+        
+            <form onSubmit={formik.handleSubmit}>
+              <div class='inputs'>
+                <label htmlFor='username'>Username</label>
+                <input type='text' name='username' value={formik.values.username} onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                {formik.errors.username && formik.touched.username ? <div className="error-message show">{formik.errors.username}</div> : null}
+              </div>  
+              <div class='inputs'>
+                <label htmlFor='location'>Location</label>
+                <input type='text' name='location' value={formik.values.location} onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                {formik.errors.location && formik.touched.location ? <div className="error-message show">{formik.errors.location}</div> : null}
+              </div>
+              <div class='inputs'>
+                <label htmlFor='bio'>Bio</label>
+                <input type='text' name='bio' value={formik.values.bio} onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                {formik.errors.bio && formik.touched.bio ? <div className="error-message show">{formik.errors.bio}</div> : null}
+              </div>
+              <input id='save' type='submit' value={'Save Profile'} />
+            </form>
+        :
+          <div id='profile-info'>
+            <p>Username: {user.username}</p>
+            <p>Email: {user.email}</p>
+            <p>Location: {user.location}</p>
+            <p>Bio: {user.bio}</p>
+          </div> 
+        }
+      </div>
     </div>
   );
 };

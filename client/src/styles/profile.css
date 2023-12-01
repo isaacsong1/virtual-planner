@@ -1,0 +1,34 @@
+#profile {
+    /* background: linear-gradient(to bottom, #3ac6ec, #06586e); */
+    /* background-color: #114063; */
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    width: 100%;
+}
+
+#profile-content {
+    /* vertical-align: middle; */
+    align-items: center;
+    /* margin-top: 13vh; */
+}
+
+#profile form {
+    font-size: 20px;
+}
+
+#profile-info {
+    font-size: 20px;
+}
+
+#profile .inputs {
+    width: 30%;
+}
+
+#profile p {
+    font-size: 20px;
+    width: 30%;
+}
+
+/* #save {
+
+} */

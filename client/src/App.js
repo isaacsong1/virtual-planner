@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import Navbar from "./components/navbar";
-// import Snackbar from "./components/snackbar";
+import AlertBar from "./components/alertbar";
 // import Footer from "./components/footer";
 import HomePage from "./pages/homePage";
 import Authentication from "./pages/authentication";
@@ -10,7 +10,7 @@ import "./styles/welcome.css";
 const App = () => {
   const navigate = useNavigate();
   const [alert, setAlert] = useState(null);
-  // const [alertType, setAlertType] = useState("");
+  const [alertType, setAlertType] = useState("");
   const [user, setUser] = useState(null);
   // const history = useHistory();
 
@@ -19,6 +19,8 @@ const App = () => {
   const handleNewAlert = useCallback((alert) => {
     setAlert(alert)
   }, [])
+
+  const handleAlertType = (type) => setAlertType(type);
 
   useEffect(() => {
     if (!user) {
@@ -37,12 +39,19 @@ const App = () => {
     }
   }, [navigate, handleNewAlert, user])
 
-  const ctx = { user, updateUser, handleNewAlert };
+  const ctx = { user, updateUser, handleNewAlert, handleAlertType  };
 
   if (!user) return (
     <div id="welcome">
-      <HomePage />
-      <Authentication updateUser={updateUser} handleNewAlert={handleNewAlert} />
+      {alert && (
+          <AlertBar
+            alert={alert}
+            handleNewAlert={handleNewAlert}
+            alertType={alertType}
+            handleAlertType={handleAlertType}
+          />
+      )}
+      <Authentication updateUser={updateUser} handleNewAlert={handleNewAlert} handleAlertType={handleAlertType} />
     </div>
   ) 
   return (

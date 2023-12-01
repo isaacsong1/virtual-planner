@@ -1,6 +1,9 @@
 import React, { useState } from "react";
-import { useFormik } from "formik";
-import * as yup from "yup";
+// import { useOutletContext } from "react-router-dom";
+import { useFormik } from "formik"
+import * as yup from "yup"
+// import * as snackbar from "snackbar";
+import "../styles/authentication.css";
 
 function Authentication({ updateUser, handleNewAlert, handleAlertType }) {
   const [signUp, setSignUp] = useState(false);
@@ -63,58 +66,41 @@ function Authentication({ updateUser, handleNewAlert, handleAlertType }) {
         });
     },
   });
-
-  return (
-    <>
-      <div id="register-switch">
-        <h2>Please Log in or Sign up!</h2>
-        <h3>{signUp ? "Already a member?" : "Not a member?"}</h3>
-        <button onClick={handleClick}>
-          {signUp ? "Log In!" : "Register now!"}
-        </button>
-      </div>
-      <form onSubmit={formik.handleSubmit}>
-        <label htmlFor="email">Email</label>
-        <input
-          type="text"
-          name="email"
-          value={formik.values.email}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-        />
-        {formik.errors.email && formik.touched.email ? (
-          <div className="error-message show">{formik.errors.email}</div>
-        ) : null}
-        {signUp && (
-          <>
-            <label htmlFor="username">Username</label>
-            <input
-              type="text"
-              name="username"
-              value={formik.values.username}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-            {formik.errors.username && formik.touched.username ? (
-              <div className="error-message show">{formik.errors.username}</div>
-            ) : null}
-          </>
-        )}
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          value={formik.values.password}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-        />
-        {formik.errors.password && formik.touched.password ? (
-          <div className="error-message show">{formik.errors.password}</div>
-        ) : null}
-        <input type="submit" value={signUp ? "Sign Up!" : "Log In!"} />
-      </form>
-    </>
-  );
+    return (
+        <div id="account-form">
+            <div id='content'>
+                <h1>Welcome to Virtual Planner</h1>
+                <div id="register-switch">
+                    {/* {signUp ? <h2>Create your free account</h2> : <h2>Log in here</h2>} */}
+                    {/* <h3>{signUp ? 'Already a member?' : 'Not a member?'}</h3>
+                    <button onClick={handleClick}>{signUp ? 'Log In!' : 'Register now!'}</button> */}
+                    {signUp ? <button class='signup' onClick={() => handleClick(true)} >Login</button> : <button id='underline' class='signup' >Login</button>}
+                    {signUp ? <button id='underline' class='signup' >Register</button> : <button class='signup' onClick={() => handleClick(false)} >Register</button>}
+                    {/* <button class='signup'>Register</button> */}
+                </div>
+                <form onSubmit={formik.handleSubmit}>
+                    <div class='inputs'>
+                        <label htmlFor='email'>Email</label>
+                        <input class='box' id='email' type='text' name='email' value={formik.values.email} onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                        {formik.errors.email && formik.touched.email ? <div className="error-message show">{formik.errors.email}</div> : null}
+                    </div>
+                    {signUp &&(
+                        <div class='inputs'>
+                            <label htmlFor='username'>Username</label>
+                            <input class='box' type='text' name='username' value={formik.values.username} onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                            {formik.errors.username && formik.touched.username ? <div className="error-message show">{formik.errors.username}</div> : null}
+                        </div>
+                    )}
+                    <div class='inputs'>
+                        <label htmlFor='password'>Password</label>
+                        <input class='box' type='password' name='password' value={formik.values.password} onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                        {formik.errors.password && formik.touched.password ? <div className="error-message show">{formik.errors.password}</div> : null}
+                    </div>
+                    <input id='login' type='submit' value={signUp ? 'Sign Up' : 'Log In'} />
+                </form>
+            </div>
+        </div>
+    )
 }
 
 export default Authentication;

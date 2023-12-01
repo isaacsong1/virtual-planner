@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Oswald:wght@200;300&display=swap');
+#welcome {
+    width: 100vw;
+    height: 100vh;
+    /* background: linear-gradient(to bottom, #3ac6ec, #06586e); */
+    /* background-color: #114063; */
+    background-image: linear-gradient(to right top, #114063, #1c4f7b, #295f95, #386faf, #4a7fc9, #7a85d4, #a28ada, #c790dc, #ef93c3, #ff9fab, #ffb29b, #fac898);
+    display: block;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+}

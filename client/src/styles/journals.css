@@ -1,0 +1,17 @@
+/* Journal Entry Page */
+
+.entryBox {
+  border: 1px solid #ced7e0;
+  border-radius: 4px;
+  padding: 16px;
+  margin: 0 auto;
+  width: calc(100% - 2*16px);
+}
+
+.title {
+  text-align: center;
+}
+
+.entryItem {
+  text-align: center;
+}

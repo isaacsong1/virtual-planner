@@ -1,9 +1,27 @@
 import { useState, useEffect } from "react";
 import { useOutletContext } from 'react-router-dom';
+import Entry from "../components/entry";
+import Box from '@mui/system/Box';
+import Grid from '@mui/system/Unstable_Grid';
+import styled from '@mui/system/styled';
+import "../styles/journals.css";
+// today, journal, entry, onEntryChange
+const Item = styled('div')(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  border: '5px solid',
+  borderColor: theme.palette.mode === 'dark' ? '#444d58' : '#ced7e0',
+  padding: theme.spacing(2),
+  borderRadius: '4px',
+  textAlign: 'center',
+  width: '250px',
+  height: '300px'
+}));
 
 const Journals = () => {
   const { user } = useOutletContext();
   const [entries, setEntries] = useState([])
+  const today = new Date()
+
   console.log(entries)
 
   useEffect(() => {
@@ -16,15 +34,26 @@ const Journals = () => {
     .catch((e) => console.log(e))
   },[])
 
+  const entryPlaceholder = entries.map((entry) => (
+    <Grid xs={3}>
+      <Item className="entryItem">
+        {/* <Entry today={today} /> */}
+      </Item>
+    </Grid>
+  ))
 
-
-
-  //fetch all journals, filter just for journal where user_id = id
 
   return (
-    <div>
-      <h1>Journals</h1>
-    </div>
+    <Box sx={{mx:10}}classname="entryBox">
+      <Grid container spacing={12}>
+      <Grid xs={12}>
+        <h1 className="title">Journal Entries</h1>
+      </Grid>
+      <div>
+        {entryPlaceholder}
+      </div>
+      </Grid>
+    </Box>
   );
 };
 

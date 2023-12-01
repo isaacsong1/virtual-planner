@@ -1,9 +1,15 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { format, addDays } from 'date-fns';
 
-const Entry = ({today, journal, entry, onEntryChange}) => {
+const Entry = ({today, journal, onEntryChange}) => {
+  const [entries, setEntries] = useState(journal.entries)
+  const entry = entries.find((entry) => entry.date === format(today, "yyyy-MM-dd"))
+
   const [entryContent, setEntryContent] = useState(entry?.entry || "")
-  const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+
+
+  //today's entry if it exists
+
 
   const handleSubmit = (e) => {
     e.preventDefault()

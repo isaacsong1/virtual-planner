@@ -9,7 +9,6 @@ const Dashboard = () => {
   const [isDay, setIsDay] = useState(true);
   const [todos, setTodos] = useState([]);
   const [journals, setJournals] = useState([])
-  const [entries, setEntries] = useState([])
   const [userJournal, setUserJournal] = useState(null)
   const [todoChange, setTodoChange] = useState(true)
   const [entryChange, setEntryChange] = useState(true)
@@ -36,11 +35,6 @@ const Dashboard = () => {
       const foundJournal = journalsData.find((journal) => journal.user_id === user.id)
       setUserJournal(foundJournal)
 
-      if (foundJournal) {
-        const entriesResponse = await fetch(`/journals/${foundJournal.id}`)
-        const entriesData = await entriesResponse.json()
-        setEntries(entriesData)
-      }
     setLoading(false)
     }
     catch (error) {
@@ -76,9 +70,6 @@ const Dashboard = () => {
   //grab the dictionary
   const todoObj = createTodoObj(userTodos, today)
 
-  //today's entry if it exists
-  const todayEntry = entries.find((entry) => entry.date === format(today, "yyyy-MM-dd"))
-
   return (
     <div>
       <h1>Dashboard</h1>
@@ -92,7 +83,7 @@ const Dashboard = () => {
           {isDay ? (
           <>
             <Todo day={Object.keys(todoObj)[0]} todoList={Object.values(todoObj)[0]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
-            <Entry today ={today} journal ={userJournal} entry = {todayEntry} onEntryChange={() => setEntryChange((status) => !status)}/>
+            <Entry today ={today} journal ={userJournal} onEntryChange={() => setEntryChange((status) => !status)}/>
           </>
         ) : (
           <>

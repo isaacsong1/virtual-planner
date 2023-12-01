@@ -8,6 +8,7 @@
   padding: 5px;
   font-size: 2.25em;
   text-align: center;
+  color: #ced4da;
 }
 .add-com {
   float: right;
@@ -39,9 +40,12 @@
 #com-name-input,
 #com-desc-input {
   height: 50px;
+  padding: 12px;
   margin-left: 10px;
   margin-bottom: 10px;
-  font-size: 1.25em;
+  /* font-size: 1.25em; */
+
+
 }
 #submit {
   float: right;
@@ -56,6 +60,7 @@
   margin-bottom: 5px;
   display: flex;
   justify-content: space-between;
+  background-color: #ced4da;
   border-bottom: 2px solid #1e90ff;
   box-shadow: 2px 2px 4px #333;
 }
@@ -107,6 +112,7 @@
 .post-card {
   padding: 5px 10px;
   margin-bottom: 5px;
+  background-color: #ced4da;
   border-bottom: 2px solid #1e90ff;
   box-shadow: 2px 2px 4px #333;
 }
@@ -131,9 +137,11 @@
 #post-title-input,
 #post-content-input {
   height: 40px;
+  padding: 12px;
   margin-left: 10px;
   margin-bottom: 10px;
-  font-size: 1.25em;
+  /* font-size: 1.25em; */
+
 }
 
 /* member card */
@@ -143,6 +151,7 @@
   margin-bottom: 5px;
   display: flex;
   align-items: center;
+  background-color: #ced4da;
   border-bottom: 2px solid #1e90ff;
 }
 .mem-avatar {

@@ -29,7 +29,7 @@ const Journals = () => {
   },[entryChange])
 
   const entryPlaceholder = entries.map((entry) => (
-    <Grid sx={{height:'100%'}} key={entry.id} xs={3}>
+    <Grid sx={{height:'100%', width: "auto"}} key={entry.id} xs={3}>
       <div className="entryItem">
         <Entry today={today} journal={journal} entry={entry} onEntryChange={() => setEntryChange((status) => !status)}/>
       </div>

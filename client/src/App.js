@@ -4,7 +4,7 @@ import Navbar from "./components/navbar";
 import AlertBar from "./components/alertbar";
 import HomePage from "./pages/homePage";
 import Authentication from "./pages/authentication";
-// import Footer from "./components/footer";
+import Footer from "./components/footer";
 
 const App = () => {
   const navigate = useNavigate();
@@ -78,8 +78,15 @@ const App = () => {
           handleAlertType={handleAlertType}
         />
       )}
-      <Navbar user={user} updateUser={updateUser} handleNewAlert={handleNewAlert} />
-      <Outlet context={ctx} />
+      <Navbar
+        user={user}
+        updateUser={updateUser}
+        handleNewAlert={handleNewAlert}
+      />
+      <div className="outlet">
+        <Outlet context={ctx} />
+      </div>
+      <Footer />
     </div>
   );
 };

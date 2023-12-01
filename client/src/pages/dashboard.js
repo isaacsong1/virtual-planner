@@ -78,12 +78,12 @@ const Dashboard = () => {
 
   //today's entry if it exists
   const todayEntry = entries.find((entry) => entry.date === format(today, "yyyy-MM-dd"))
-    console.log(todayEntry)
+
   return (
     <div>
       <h1>Dashboard</h1>
       <h2>{dayNames[today.getDay()]}</h2>
-      <h3>{format(today, "MM/dd/yyyy")}</h3>
+      <h3>{format(today, "MM/dd/yy")}</h3>
       <button onClick={toggleDisplay}>{isDay ? "Week View" : "Day View"}</button>
       {loading ? (
         <p>Loading...</p>
@@ -92,7 +92,7 @@ const Dashboard = () => {
           {isDay ? (
           <>
             <Todo day={Object.keys(todoObj)[0]} todoList={Object.values(todoObj)[0]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
-            <Entry today ={format(today, "yyyy-MM-dd")} journal ={userJournal} entry = {todayEntry} onEntryChange={() => setEntryChange((status) => !status)}/>
+            <Entry today ={today} journal ={userJournal} entry = {todayEntry} onEntryChange={() => setEntryChange((status) => !status)}/>
           </>
         ) : (
           <>

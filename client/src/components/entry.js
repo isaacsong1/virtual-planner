@@ -1,7 +1,9 @@
 import React, {useState} from "react";
+import { format, addDays } from 'date-fns';
 
 const Entry = ({today, journal, entry, onEntryChange}) => {
   const [entryContent, setEntryContent] = useState(entry?.entry || "")
+  const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -40,7 +42,7 @@ const Entry = ({today, journal, entry, onEntryChange}) => {
         body: JSON.stringify({
           entry: entryContent,
           journal_id: journal.id,
-          date: today
+          date: format(today, "yyyy-MM-dd")
         })
       })
       .then((r) => {
@@ -66,7 +68,7 @@ const Entry = ({today, journal, entry, onEntryChange}) => {
 
   return (
     <div>
-      <h1>Journal Entry</h1>
+      <h1>Journal Entry - {format(today, "MM/dd/yy")}</h1>
       {entry ? (
         <>
           <form onSubmit={handleSubmit}>

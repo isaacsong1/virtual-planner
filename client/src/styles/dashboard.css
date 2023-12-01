@@ -33,7 +33,7 @@ h2 {
   border-radius: 4px;
   padding: 2px;
   box-sizing: border-box;
-  box-shadow: 5px 10px;
+  box-shadow: 5px 10px #FAC898;
   flex-direction: column;
 }
 

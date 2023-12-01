@@ -43,6 +43,7 @@ const Todo = ({day, todoList, onUpdateTodo}) => {
   return (
     <div className="todoCard">
       <h1 className="journal-entry">Todo List</h1>
+      <h2 className="date" >{day}</h2>
       <ul>
         {todos}
         <input className="add-todo"

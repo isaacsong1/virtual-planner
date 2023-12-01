@@ -13,7 +13,7 @@
   border-radius: 4px;
   padding: 10px;
   box-sizing: border-box;
-  box-shadow: 5px 10px;
+  box-shadow: 5px 10px #6495ED;
   flex-direction: column;
 }
 

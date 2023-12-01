@@ -6,6 +6,7 @@ import HomePage from "./pages/homePage";
 import Authentication from "./pages/authentication";
 import Footer from "./components/footer";
 
+
 const App = () => {
   const navigate = useNavigate();
   const [alert, setAlert] = useState(null);
@@ -47,27 +48,21 @@ const App = () => {
     }
   }, [navigate, handleNewAlert, user]);
 
-  const ctx = { user, updateUser, handleNewAlert, handleAlertType };
+  const ctx = { user, updateUser, handleNewAlert, handleAlertType  };
 
-  if (!user)
-    return (
-      <>
-        {alert && (
+  if (!user) return (
+    <div id="welcome">
+      {alert && (
           <AlertBar
             alert={alert}
             handleNewAlert={handleNewAlert}
             alertType={alertType}
             handleAlertType={handleAlertType}
           />
-        )}
-        <HomePage />
-        <Authentication
-          updateUser={updateUser}
-          handleNewAlert={handleNewAlert}
-          handleAlertType={handleAlertType}
-        />
-      </>
-    );
+      )}
+      <Authentication updateUser={updateUser} handleNewAlert={handleNewAlert} handleAlertType={handleAlertType} />
+    </div>
+  ) 
   return (
     <div className="app">
       {alert && (

@@ -14,11 +14,11 @@ const routes = [
     element: <App />,
     errorElement: <Error404 />,
     children: [
-      {
-        path: "/",
-        index: true,
-        element: <HomePage />,
-      },
+      // {
+      //   path: "/",
+      //   index: true,
+      //   element: <HomePage />,
+      // },
       {
         path: "/",
         element: <Authentication />

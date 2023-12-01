@@ -98,7 +98,7 @@ const Communities = () => {
                   />
                 </div>
                 <div className="com-desc">
-                  <label htmlFor="description">New CommunityDescription:</label>
+                  <label htmlFor="description">New Community Description:</label>
                   <input
                     id="com-desc-input"
                     type="text"

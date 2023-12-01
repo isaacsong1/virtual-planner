@@ -1,6 +1,10 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
 /* communities page */
 .coms-page {
   padding: 0 2vw;
+  font-family: 'Oswald', sans-serif;
 }
 .coms-page-name,
 .com-page-name {
@@ -9,6 +13,7 @@
   font-size: 2.25em;
   text-align: center;
   color: #ced4da;
+  font-family: 'Oswald', sans-serif;
 }
 .add-com {
   float: right;
@@ -25,6 +30,7 @@
   border-radius: 4px;
   font-size: 1.15em;
   min-width: 100px;
+  font-family: 'Oswald', sans-serif;
 }
 .com-btn:hover {
   cursor: pointer;

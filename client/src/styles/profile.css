@@ -17,6 +17,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    color: #CED4DA;
 }
 
 #profile button{
@@ -36,6 +37,7 @@
 
 #profile label {
     width: 20vw;
+    color: #CED4DA;
 }
 
 #profile-info {
@@ -59,7 +61,7 @@
 #profile p {
     font-size: 20px;
     width: 30%;
-    
+    color: #CED4DA;
 }
 
 #save {
@@ -67,6 +69,7 @@
     width: 20%;
     margin-top: 24px;
     padding: 10px;
+    font-family: 'Oswald', sans-serif;
 }
 
 #editbtn {
@@ -74,10 +77,10 @@
     width: 20%;
     margin-top: 24px;
     padding: 10px;
+    font-family: 'Oswald', sans-serif;
 }
 
 #profile p {
     font-size: 20px;
     width: 30%;
 }
-

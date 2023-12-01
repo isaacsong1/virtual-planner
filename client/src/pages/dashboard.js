@@ -12,6 +12,7 @@ const Dashboard = () => {
   const [entries, setEntries] = useState([])
   const [userJournal, setUserJournal] = useState(null)
   const [todoChange, setTodoChange] = useState(true)
+  const [entryChange, setEntryChange] = useState(true)
   const [loading, setLoading] = useState(true)
   const today = new Date()
   const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
@@ -50,7 +51,7 @@ const Dashboard = () => {
   //useEffect to fetch data on page load
   useEffect(() => {
     fetchData()
-  }, [todoChange])
+  }, [todoChange, entryChange])
 
   const createTodoObj = (todos, date) => {
     let todoDict = {}
@@ -91,7 +92,7 @@ const Dashboard = () => {
           {isDay ? (
           <>
             <Todo day={Object.keys(todoObj)[0]} todoList={Object.values(todoObj)[0]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
-            <Entry entry = {todayEntry}/>
+            <Entry today ={format(today, "yyyy-MM-dd")} journal ={userJournal} entry = {todayEntry} onEntryChange={() => setEntryChange((status) => !status)}/>
           </>
         ) : (
           <>

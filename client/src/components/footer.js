@@ -4,7 +4,9 @@ import "../styles/footer.css";
 const Footer = () => {
   return (
     <footer>
+
       <div>© 2023 Bosek | Lopez | Song </div>
+
       <div>
         <span>
           <RiVipDiamondLine />

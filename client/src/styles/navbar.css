@@ -6,7 +6,8 @@
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #1e90ff;
-  box-shadow: 0 0 10px white;
+/*   box-shadow: 0 0 10px white; */
+
 }
 .link {
   font-size: 1.5em;

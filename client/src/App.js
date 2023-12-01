@@ -7,7 +7,6 @@ import Authentication from "./pages/authentication";
 import Footer from "./components/footer";
 
 
-
 const App = () => {
   const navigate = useNavigate();
   const [alert, setAlert] = useState(null);

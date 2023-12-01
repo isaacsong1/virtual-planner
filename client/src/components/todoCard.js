@@ -45,7 +45,7 @@ const Todo = ({day, todoList, onUpdateTodo}) => {
       <h1 className="journal-entry">Todo List</h1>
       <ul>
         {todos}
-        <input
+        <input className="add-todo"
           type="text"
           value={newTodo}
           placeholder="Add new todo"

@@ -29,7 +29,7 @@
 .cbx-label {
   font-family: 'Nanum Pen Script', cursive;
   font-size: 120%;
-  margin-right: 50px;
+  margin-right: 30px;
 }
 
 
@@ -74,8 +74,17 @@ input {
   transform: translate(-50%, -50%) rotate(-45deg);
 }
 
-.new-todo {
+.edit-todo {
   font-family: 'Nanum Pen Script', cursive;
   font-size: 120%;
   background-color: #FAC898;
+}
+
+.add-todo {
+  font-family: 'Nanum Pen Script', cursive;
+  font-size: 120%;
+  background-color: #ecf1f5;
+  border-color: #FAC898;
+  border-style: double ;
+  padding-left: 10px;
 }

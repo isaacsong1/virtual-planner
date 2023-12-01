@@ -61,7 +61,7 @@ const TodoItem = ({todo, onUpdateTodo}) => {
     <div className='td-item-container'>
       <div onDoubleClick={handleDoubleClick}>
         {isEditing ? (
-          <input className='new-todo'
+          <input className='edit-todo'
             type="text"
             value={editedTodoItem}
             onChange={handleEditTodo}

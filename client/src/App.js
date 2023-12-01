@@ -78,7 +78,7 @@ const App = () => {
           handleAlertType={handleAlertType}
         />
       )}
-      <Navbar user={user} />
+      <Navbar user={user} updateUser={updateUser} handleNewAlert={handleNewAlert} />
       <Outlet context={ctx} />
     </div>
   );

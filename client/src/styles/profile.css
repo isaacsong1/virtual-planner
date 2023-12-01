@@ -1,86 +1,116 @@
-#profile {
-    /* background: linear-gradient(to bottom, #3ac6ec, #06586e); */
-    /* background-color: #114063; */
+.profileGrid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1rem;
+    grid-template-rows: auto;
+    grid-template-areas:
+        ". . header header header . ."
+        ". . profile profile profile . . ";
+}
+
+.profileHead {
+    text-align: center;
+    align-self: center;
+    align-items: center;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    font-size: 40px;
+    grid-area: header;
+    color: #CED4DA;
+}
+
+.profile-container {
+    grid-area: profile;
+    text-align: left;
+    justify-content: "center";
+    height: 100%;
+    width: 100%;
+    display: flex;
+    border: 4px solid #6495ED;
+    background-color: #CED4DA;
+    border-radius: 4px;
+    padding: 2px;
+    box-sizing: border-box;
+    flex-direction: column;
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    align-self: center;
+}
+
+.profile-info p {
     font-family: 'Oswald', sans-serif;
     font-weight: 300;
-    width: 100%;
+    font-size: larger;
 }
 
-#profile-content {
-    /* vertical-align: middle; */
-    align-items: center;
-    /* margin-top: 13vh; */
-}
-
-#profile h1{
+.profile-button {
+    align-self: center;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: #CED4DA;
 }
 
-#profile button{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.inputs {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    font-size: larger;
+}
+.inputs label {
+    margin-right: 15px;
 }
 
-#profile form {
-    font-size: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.inputs input {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    background-color: #BFD0EE;
+    padding-left: 3px;
 }
 
-#profile label {
-    width: 20vw;
-    color: #CED4DA;
-}
-
-#profile-info {
-    font-size: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-#profile .inputs {
-    width: 30%;
-}
-
-#profile form input {
-    padding: 10px;
-    border-radius: 4px;
-    border: 1px solid #343A40;
-}
-
-#profile p {
-    font-size: 20px;
-    width: 30%;
-    color: #CED4DA;
-}
-
-#save {
+/* .edit-save-btn {
     border-radius: 24px;
-    width: 20%;
-    margin-top: 24px;
+    width: auto;
+    margin: 24px 0 24px 0;
     padding: 10px;
     font-family: 'Oswald', sans-serif;
-}
+    align-items: center;
+    cursor: pointer;
+} */
 
-#editbtn {
-    border-radius: 24px;
-    width: 20%;
-    margin-top: 24px;
-    padding: 10px;
+.edit-save-btn {
+    width: 100px;
+    max-width: 200px;
+    padding: 2px;
+    box-sizing: border-box;
+    text-align: center;
+    margin: 30px 0 10px 0;
+    transition: all 235ms ease-in-out;
+    touch-action: manipulation;
+    align-self: center;
     font-family: 'Oswald', sans-serif;
+    border-style: hidden hidden double hidden;
+    border-color: #6495ED;
+    cursor: pointer;
 }
 
-#profile p {
-    font-size: 20px;
-    width: 30%;
+.edit-save-btn:hover {
+    box-shadow: rgba(0, 0, 0, .3) 2px 8px 8px -5px;
+    transform: translate3d(0, 2px, 0);
+}
+
+.edit-save-btn:focus {
+    box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
+}
+
+.info-icon {
+    display: flex;
+    align-items: center;
+
+}
+
+#mem-avatar {
+    float: left;
+    font-size: 75px;
+    margin-right: 25px;
 }

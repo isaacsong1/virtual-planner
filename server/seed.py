@@ -130,7 +130,7 @@ if __name__ == "__main__":
         print("Seeding posts...")
         posts = []
         for u in user_communities:
-            for i in range(8):
+            for i in range(4):
                 uc = rc(user_communities)
                 posts.append(
                     Post(

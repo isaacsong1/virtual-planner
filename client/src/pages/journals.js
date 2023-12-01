@@ -1,4 +1,7 @@
 const Journals = () => {
+
+  //fetch all entries
+
   return (
     <div>
       <h1>Journals</h1>

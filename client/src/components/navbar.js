@@ -1,14 +1,12 @@
-import { NavLink, useOutletContext } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Navbar = ({user, updateUser, handleNewAlert}) => {
-  // const { user } = useOutletContext();
-
   const handleLogout = () => {
     fetch("/logout", {method: "DELETE"})
     .then(() => updateUser(null))
     .catch(handleNewAlert)
   }
-
+  
   return (
     <nav className="navbar">
       <div>

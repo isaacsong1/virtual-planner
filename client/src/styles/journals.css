@@ -120,6 +120,7 @@
   font-family: 'Oswald', sans-serif;
   border-style: hidden hidden double hidden;
   border-color: #6495ED;
+  cursor: pointer;
 }
 .entry-button:hover {
   box-shadow: rgba(0, 0, 0, .3) 2px 8px 8px -5px;

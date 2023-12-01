@@ -58,30 +58,31 @@ const TodoItem = ({todo, onUpdateTodo}) => {
   }
 
   return (
-    <div>
+    <div className='td-item-container'>
       <div onDoubleClick={handleDoubleClick}>
         {isEditing ? (
-          <input
+          <input className='new-todo'
             type="text"
             value={editedTodoItem}
             onChange={handleEditTodo}
             onBlur={handleBlur}
           />
-        ):(
-          <div>
-            <input
-          type="checkbox"
-          checked={todo.status}
-          onChange={handleCheck}
-        />
-        {todo.item}
+        ) : (
+          <div className='checkbox'>
+              <input className='cbx-input'
+              type="checkbox"
+              checked={todo.status}
+              onChange={handleCheck}
+              />
+            <label className='cbx-label'>
+              {todo.item}
+            </label>
           </div>
         )
         }
       </div>
-      <button onClick={handleDelete}>x</button>
+      <button className='delete-button' onClick={handleDelete}>x</button>
     </div>
-
   );
 };
 

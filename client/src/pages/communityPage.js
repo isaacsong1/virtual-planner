@@ -1,14 +1,21 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useOutletContext, useParams } from "react-router-dom";
 import PostCard from "../components/postCard";
 import MemberCard from "../components/memberCard";
 
+const initialValue = {
+  title: "",
+  content: "",
+};
+
 const CommunityPage = () => {
   const { id } = useParams();
+  const { handleNewAlert, handleAlertType } = useOutletContext();
   const [posts, setPosts] = useState([]);
   const [members, setMembers] = useState([]);
   const [community, setCommunity] = useState({});
   const [showAdd, setShowAdd] = useState(false);
+  const [formData, setFormData] = useState(initialValue);
 
   useEffect(() => {
     const getCommunity = () => {
@@ -19,17 +26,52 @@ const CommunityPage = () => {
           setMembers(data.users);
           setCommunity(data.community);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          handleNewAlert(err.error);
+          handleAlertType("error");
+        });
     };
     getCommunity();
-  }, []);
+  }, [id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleClick = () => setShowAdd(true);
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
   const handleSubmit = (e) => {
-    //! submit new post (POST)
     e.preventDefault();
-    setShowAdd(false);
+    console.log(formData);
+    fetch(`/communities/${id}/posts`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((res) => {
+        console.log(res);
+        if (res.ok) {
+          res.json().then((data) => {
+            setPosts([...posts, data]);
+            setFormData(initialValue);
+            setShowAdd(false);
+            handleNewAlert("New Post Submitted!");
+            handleAlertType("success");
+          });
+        } else {
+          res.json().then((errorObj) => {
+            handleNewAlert(errorObj.error);
+            handleAlertType("error");
+          });
+        }
+      })
+      .catch((err) => {
+        handleNewAlert(err.error);
+        handleAlertType("error");
+      });
   };
 
   const allPosts = posts.map((post) => <PostCard key={post.id} {...post} />);
@@ -47,10 +89,22 @@ const CommunityPage = () => {
         ) : (
           <div>
             <form onSubmit={handleSubmit}>
-              <label for="title">Title:</label>
-              <input type="text" id="title" />
-              <label for="content">Content:</label>
-              <input type="text" id="content" />
+              <label htmlFor="title">Title:</label>
+              <input
+                id="title"
+                type="text"
+                name="title"
+                value={formData.title}
+                onChange={handleChange}
+              />
+              <label htmlFor="content">Content:</label>
+              <input
+                id="content"
+                type="text"
+                name="content"
+                value={formData.content}
+                onChange={handleChange}
+              />
               <input type="submit" value="Post" />
             </form>
           </div>

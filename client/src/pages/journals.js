@@ -5,21 +5,14 @@ import Box from '@mui/system/Box';
 import Grid from '@mui/system/Unstable_Grid';
 import styled from '@mui/system/styled';
 import "../styles/journals.css";
-// today, journal, entry, onEntryChange
-const Item = styled('div')(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  border: '5px solid',
-  borderColor: theme.palette.mode === 'dark' ? '#444d58' : '#ced7e0',
-  padding: theme.spacing(2),
-  borderRadius: '4px',
-  textAlign: 'center',
-  width: '250px',
-  height: '300px'
-}));
+
+
 
 const Journals = () => {
   const { user } = useOutletContext();
   const [entries, setEntries] = useState([])
+  const [journal, setJournal] = useState()
+  const [entryChange, setEntryChange] = useState(true)
   const today = new Date()
 
   console.log(entries)
@@ -29,29 +22,30 @@ const Journals = () => {
     .then(r => r.json())
     .then((journals) => {
       const filteredJournal = journals.find((journal) => journal.user_id === user.id)
+      setJournal(filteredJournal)
       setEntries(filteredJournal.entries)
     })
     .catch((e) => console.log(e))
-  },[])
+  },[entryChange])
 
   const entryPlaceholder = entries.map((entry) => (
-    <Grid xs={3}>
-      <Item className="entryItem">
-        {/* <Entry today={today} /> */}
-      </Item>
+    <Grid sx={{height:'100%'}} key={entry.id} xs={3}>
+      <div className="entryItem">
+        <Entry today={today} journal={journal} entry={entry} onEntryChange={() => setEntryChange((status) => !status)}/>
+      </div>
     </Grid>
   ))
 
 
   return (
-    <Box sx={{mx:10}}classname="entryBox">
+    <Box sx={{mx:10}}className="entryBox">
       <Grid container spacing={12}>
-      <Grid xs={12}>
+      <Grid xs={12} sx={{py:4}}>
         <h1 className="title">Journal Entries</h1>
-      </Grid>
-      <div>
+      </Grid >
+        <Grid sx={{ height: '500px' ,pt:2}}container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 } }>
         {entryPlaceholder}
-      </div>
+        </Grid>
       </Grid>
     </Box>
   );

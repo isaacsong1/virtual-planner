@@ -1,17 +1,130 @@
-/* Journal Entry Page */
+
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
 
 .entryBox {
-  border: 1px solid #ced7e0;
-  border-radius: 4px;
+  /* border: 1px solid #ced7e0;
+  border-radius: 4px; */
   padding: 16px;
   margin: 0 auto;
-  width: calc(100% - 2*16px);
 }
 
 .title {
   text-align: center;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 400;
+  font-size:40px;
 }
+/* const Item=styled('div')(({
+    theme
 
+  })=> ({
+  backgroundColor: theme.palette.mode==='dark' ? '#1A2027' : '#fff',
+  border: '5px solid',
+  borderColor: theme.palette.mode==='dark' ? '#444d58' : '#ced7e0',
+  padding: theme.spacing(2),
+  borderRadius: '4px',
+  textAlign: 'center',
+  width: '100%',
+  height: '100%',
+})); */
 .entryItem {
   text-align: center;
+  justify-content: "center";
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  border: 4px solid #6495ED;
+  background-color: #CED4DA;
+  border-radius: 4px;
+  padding: 2px;
+  box-sizing: border-box;
+  box-shadow: 5px 10px;
+  flex-direction: column;
+}
+
+/* entry css */
+.entry-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 350px;
+}
+
+.entry-form {
+  width: 100%;
+  max-width: 800px;
+  /* Adjust the max-width as needed */
+  margin: 10px;
+  flex-direction: column;
+  display: flex;
+  height: 100%
+}
+
+.entry-div {
+  background-image: repeating-linear-gradient(to bottom, transparent, transparent 20px, #eeeded 20px, #eeeded 21px);
+  display: flex;
+  width: 90%;
+  align-items: center;
+  align-self: center;
+  height: 100%;
+  flex-direction: column;
+}
+.entry-input {
+  flex: 1;
+  overflow-y: scroll;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  background-color: transparent;
+  border: none;
+  height: 100%;
+  white-space: pre-wrap;
+    /* Allow text to wrap */
+  overflow-x: hidden;
+  width: 100%;
+  resize: none;
+  font-family: 'Nanum Pen Script', cursive;
+  font-size: 120%;
+}
+
+
+.journal-entry {
+  display: flex;
+  align-self: flex-start;
+  align-content: flex-start;
+  margin-top: 10px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 400;
+}
+
+.date {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 300;
+  font-size: large;
+}
+
+.entry-button {
+  width:50%;
+  max-width: 200px;
+  padding: 2px;
+  box-sizing: border-box;
+  text-align: center;
+  margin-top: 10px;
+  transition: all 235ms ease-in-out;
+  touch-action: manipulation;
+  align-self: center;
+  font-family: 'Oswald', sans-serif;
+  border-style: hidden hidden double hidden;
+  border-color: #6495ED;
+}
+.entry-button:hover {
+  box-shadow: rgba(0, 0, 0, .3) 2px 8px 8px -5px;
+  transform: translate3d(0, 2px, 0);
+}
+
+.entry-button:focus {
+  box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
 }

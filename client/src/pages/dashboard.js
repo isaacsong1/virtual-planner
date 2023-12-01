@@ -83,6 +83,7 @@ const Dashboard = () => {
 
   //today's entry if it exists
   const todayEntry = entries.find((entry) => entry.date === format(today, "yyyy-MM-dd"))
+  console.log(todayEntry)
 
 
   return (

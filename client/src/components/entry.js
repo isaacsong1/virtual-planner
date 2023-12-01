@@ -6,6 +6,8 @@ const Entry = ({today, journal, entry, onEntryChange}) => {
   const [entryContent, setEntryContent] = useState(entry?.entry || "")
   const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
   const actualDate = new Date(entry.date)
+  console.log(actualDate)
+  console.log(today)
 
 
   //today's entry if it exists
@@ -77,7 +79,7 @@ const Entry = ({today, journal, entry, onEntryChange}) => {
 
       <div className="entry-container">
         <h1 className="journal-entry">&nbsp;&nbsp;&nbsp;&nbsp;Journal&nbsp;&nbsp;&nbsp;Entry&nbsp;&nbsp;&nbsp;&nbsp;</h1>
-        <h2 className="date" >{entry ? (format(actualDate, "MM/dd/yy")): ("")}</h2>
+        <h2 className="date" >{entry ? (format(today, "MM/dd/yy")): ("")}</h2>
         <div className="entry-div">
           {entry ? (
             <>

@@ -45,6 +45,7 @@ h2 {
   font-weight: 400;
   font-size: 40px;
   grid-area: header;
+  color: #CED4DA;
 }
 
 .side {
@@ -53,6 +54,7 @@ h2 {
 }
 .today {
   grid-area: today;
+  color: #CED4DA;
 }
 .todo {
   grid-area: todo;

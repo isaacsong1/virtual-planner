@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import "../styles/todos.css";
 
 const TodoItem = ({todo, onUpdateTodo}) => {
   const [isEditing, setIsEditing] = useState(false)

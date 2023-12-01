@@ -93,7 +93,7 @@
 
 .journal-entry {
   display: flex;
-  align-self: flex-start;
+  /* align-self: flex-start; */
   align-content: flex-start;
   margin-top: 10px;
   font-family: 'Oswald', sans-serif;
@@ -104,6 +104,7 @@
   font-family: 'Oswald', sans-serif;
   font-weight: 300;
   font-size: large;
+  text-align: center;
 }
 
 .entry-button {

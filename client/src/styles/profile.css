@@ -75,3 +75,9 @@
     margin-top: 24px;
     padding: 10px;
 }
+
+#profile p {
+    font-size: 20px;
+    width: 30%;
+}
+

@@ -58,9 +58,7 @@ const Profile = () => {
     <div id='profile'>
       <div id='profile-content'>
         <h1>{`${user.username}'s Profile`}</h1>
-        
         {isEditting ? 
-        
             <form onSubmit={formik.handleSubmit}>
               <div class='inputs'>
                 <label htmlFor='username'>Username</label>

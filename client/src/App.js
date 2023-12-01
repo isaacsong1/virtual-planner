@@ -2,9 +2,9 @@ import { useState, useEffect, useCallback } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import Navbar from "./components/navbar";
 import AlertBar from "./components/alertbar";
-import HomePage from "./pages/homePage";
-import Authentication from "./pages/authentication";
 // import Footer from "./components/footer";
+import Authentication from "./pages/authentication";
+import HomePage from "./pages/homePage";
 
 const App = () => {
   const navigate = useNavigate();

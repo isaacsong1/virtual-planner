@@ -1,6 +1,6 @@
 const Journals = () => {
 
-  //fetch all entries
+  //fetch all entries where entry.
 
   return (
     <div>

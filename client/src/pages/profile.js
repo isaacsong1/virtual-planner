@@ -31,6 +31,7 @@ const Profile = () => {
   const formik = useFormik({
     initialValues: {
       username: user.username,
+      location: user.location,
       bio: user.bio
     },
     validationSchema: profileSchema,
@@ -57,9 +58,7 @@ const Profile = () => {
     <div id='profile'>
       <div id='profile-content'>
         <h1>{`${user.username}'s Profile`}</h1>
-        {user.id === parseInt(id) ? (isEditting ? null :  <button onClick={handleEdit} >Edit Profile</button>) : null}
         {isEditting ? 
-        
             <form onSubmit={formik.handleSubmit}>
               <div class='inputs'>
                 <label htmlFor='username'>Username</label>
@@ -84,6 +83,7 @@ const Profile = () => {
             <p>Email: {user.email}</p>
             <p>Location: {user.location}</p>
             <p>Bio: {user.bio}</p>
+            {user.id === parseInt(id) ? (isEditting ? null :  <button id='editbtn' onClick={handleEdit} >Edit Profile</button>) : null}
           </div> 
         }
       </div>

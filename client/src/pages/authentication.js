@@ -66,7 +66,6 @@ function Authentication({ updateUser, handleNewAlert, handleAlertType }) {
         });
     },
   });
-
     return (
         <div id="account-form">
             <div id='content'>

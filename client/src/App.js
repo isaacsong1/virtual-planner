@@ -21,6 +21,8 @@ const App = () => {
 
   const handleAlertType = (type) => setAlertType(type);
 
+  const handleAlertType = (type) => setAlertType(type);
+
   useEffect(() => {
     if (!user) {
       navigate("/");

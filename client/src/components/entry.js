@@ -5,12 +5,6 @@ import "../styles/journals.css";
 const Entry = ({today, journal, entry, onEntryChange}) => {
   const [entryContent, setEntryContent] = useState(entry?.entry || "")
   const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-  // const actualDate = new Date(entry? entry.date: today)
-  // console.log(entry.date)
-
-
-  //today's entry if it exists
-
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -35,7 +29,9 @@ const Entry = ({today, journal, entry, onEntryChange}) => {
           throw new Error("Failed to update entry")
         }
       })
-      .then((updatedEntry) => setEntryContent(updatedEntry.entry))
+      .then((updatedEntry) => {
+        setEntryContent(updatedEntry.entry)
+      })
       .catch((e) => {console.log(e)})
       onEntryChange()
     }
@@ -62,7 +58,9 @@ const Entry = ({today, journal, entry, onEntryChange}) => {
         }
 
       })
-      .then((newEntry) => setEntryContent(newEntry.entry))
+      .then((newEntry) => {
+        setEntryContent(newEntry.entry)
+      })
       .catch(e => console.log(e))
       onEntryChange()
     }
@@ -78,7 +76,7 @@ const Entry = ({today, journal, entry, onEntryChange}) => {
 
       <div className="entry-container">
         <h1 className="journal-entry">&nbsp;&nbsp;&nbsp;&nbsp;Journal&nbsp;&nbsp;&nbsp;Entry&nbsp;&nbsp;&nbsp;&nbsp;</h1>
-        {/* <h2 className="date" >{actualDate ? (format(actualDate, "MM/dd/yy")): ("")}</h2> */}
+        <h2 className="date" >{entry ? entry.date : format(today, "yyyy-MM-dd")}</h2>
         <div className="entry-div">
           {entry ? (
             <>

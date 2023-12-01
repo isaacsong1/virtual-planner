@@ -33,8 +33,9 @@ const App = () => {
               .then(navigate(`/users/${user.id}/dashboard`));
           } else {
             resp.json().then((errorObj) => {
-              handleNewAlert(errorObj.error);
-              handleAlertType("error");
+              console.log('Not authenticated');
+              // handleNewAlert(errorObj.error);
+              // handleAlertType("error");
             });
           }
         })

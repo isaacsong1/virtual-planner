@@ -1,0 +1,37 @@
+.navbar {
+  height: 5vh;
+  padding: 0 3vw;
+  background-color: #343a40;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #1e90ff;
+  box-shadow: 0 0 6px #333;
+}
+.link {
+  font-size: 1.5em;
+  color: #ced4da;
+  text-decoration: none;
+  margin: 0 1em;
+}
+.link:hover {
+  color: #1e90ff;
+}
+.active {
+  color: #1e90ff;
+  border-bottom: 1px solid #fac898;
+}
+.logout {
+  font-size: 1.15em;
+  color: #343a40;
+  background-color: #fac898;
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+.logout:hover {
+  cursor: pointer;
+  color: #343a40;
+  font-size: 1.2em;
+  border: 1px solid #343a40;
+  box-shadow: 0 0 4px #1e90ff, 0 0 10px #495057;
+}

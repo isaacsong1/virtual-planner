@@ -16,10 +16,5 @@
 
 .outlet {
   min-height: 90vh;
-}
-.navbar {
-  height: 5vh;
-}
-footer {
-  height: 5vh;
+  padding-top: 2vh;
 }

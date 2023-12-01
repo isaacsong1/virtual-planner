@@ -34,7 +34,7 @@ const CommunityPage = () => {
     getCommunity();
   }, [id]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const handleClick = () => setShowAdd(true);
+  const handleClick = () => setShowAdd((p) => !p);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -80,38 +80,55 @@ const CommunityPage = () => {
 
   return (
     <div className="com-page">
-      <div className="com-page-name">{community.name}</div>
-      <div>
+      <div className="add-com">
         {!showAdd ? (
-          <div className="add-com">
-            <button onClick={handleClick}>Add Post</button>
-          </div>
+          <button className="com-btn" onClick={handleClick}>
+            New Post
+          </button>
         ) : (
-          <div>
-            <form onSubmit={handleSubmit}>
-              <label htmlFor="title">Title:</label>
-              <input
-                id="title"
-                type="text"
-                name="title"
-                value={formData.title}
-                onChange={handleChange}
-              />
-              <label htmlFor="content">Content:</label>
-              <input
-                id="content"
-                type="text"
-                name="content"
-                value={formData.content}
-                onChange={handleChange}
-              />
-              <input type="submit" value="Post" />
-            </form>
-          </div>
+          <button className="com-btn" onClick={handleClick}>
+            Cancel
+          </button>
         )}
       </div>
+      <div className="com-page-name">{community.name}</div>
       <div className="com-post-member">
-        <div className="com-posts">{allPosts}</div>
+        <div className="com-posts">
+          <div>
+            {showAdd && (
+              <form onSubmit={handleSubmit}>
+                <div className="post-card">
+                  <input
+                    type="submit"
+                    value="Post"
+                    className="com-btn post-user"
+                  />
+                  <div className="post-title">
+                    <label htmlFor="title">Title:</label>
+                    <input
+                      id="post-title-input"
+                      type="text"
+                      name="title"
+                      value={formData.title}
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div className="post-content">
+                    <label htmlFor="content">Content:</label>
+                    <input
+                      id="post-content-input"
+                      type="text"
+                      name="content"
+                      value={formData.content}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+              </form>
+            )}
+          </div>
+          {allPosts}
+        </div>
         <div className="com-members">{allMembers}</div>
       </div>
     </div>

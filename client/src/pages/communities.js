@@ -27,7 +27,7 @@ const Communities = () => {
     getCommunities();
   }, [showAdd]);
 
-  const handleClick = () => setShowAdd(true);
+  const handleClick = () => setShowAdd((p) => !p);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -70,34 +70,54 @@ const Communities = () => {
 
   return (
     <div className="coms-page">
+      <div className="add-com">
+        {!showAdd ? (
+          <button className="com-btn" onClick={handleClick}>
+            New Community
+          </button>
+        ) : (
+          <button className="com-btn" onClick={handleClick}>
+            Cancel
+          </button>
+        )}
+      </div>
       <div className="coms-page-name">Virtual Planner Communities</div>
       <div>
-        {!showAdd ? (
-          <div className="add-com">
-            <button onClick={handleClick}>Start New Community</button>
-          </div>
-        ) : (
-          <div>
-            <form onSubmit={handleSubmit}>
-              <label htmlFor="name">Name:</label>
-              <input
-                id="name"
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-              />
-              <label htmlFor="description">Description:</label>
-              <input
-                id="description"
-                type="text"
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-              />
-              <input type="submit" value="Add New" />
-            </form>
-          </div>
+        {showAdd && (
+          <form onSubmit={handleSubmit}>
+            <div className="com-card">
+              <span className="com-left">
+                <div className="com-name">
+                  <label htmlFor="name">New Community Name:</label>
+                  <input
+                    id="com-name-input"
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="com-desc">
+                  <label htmlFor="description">New CommunityDescription:</label>
+                  <input
+                    id="com-desc-input"
+                    type="text"
+                    name="description"
+                    value={formData.description}
+                    onChange={handleChange}
+                  />
+                </div>
+              </span>
+              <span className="com-right">
+                <input
+                  type="submit"
+                  value="Add"
+                  id="submit"
+                  className="com-btn"
+                />
+              </span>
+            </div>
+          </form>
         )}
       </div>
       {allCommunities}

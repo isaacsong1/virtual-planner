@@ -3,6 +3,10 @@ import { useOutletContext } from 'react-router-dom';
 import Todo from "../components/todoCard";
 import Entry from "../components/entry";
 import {format, addDays} from 'date-fns';
+import Box from '@mui/system/Box';
+import Grid from '@mui/system/Unstable_Grid';
+import styled from '@mui/system/styled';
+import "../styles/dashboard.css";
 
 const Dashboard = () => {
   const { user } = useOutletContext();
@@ -41,6 +45,7 @@ const Dashboard = () => {
         const entriesData = await entriesResponse.json()
         setEntries(entriesData)
       }
+
     setLoading(false)
     }
     catch (error) {
@@ -78,37 +83,60 @@ const Dashboard = () => {
 
   //today's entry if it exists
   const todayEntry = entries.find((entry) => entry.date === format(today, "yyyy-MM-dd"))
+  console.log(todayEntry)
+
 
   return (
-    <div>
-      <h1>Dashboard</h1>
-      <h2>{dayNames[today.getDay()]}</h2>
-      <h3>{format(today, "MM/dd/yy")}</h3>
-      <button onClick={toggleDisplay}>{isDay ? "Week View" : "Day View"}</button>
+    <Box className="myGrid" sx={{ mx: 10 }}>
+        <h1 className="header">Dashboard</h1>
+        <h2 className="today">{dayNames[today.getDay()]} - {format(today, "MM/dd/yy")}</h2>
+      <div className="side">
+        <button className="entry-button" onClick={toggleDisplay}>{isDay ? "Week View" : "Day View"}</button>
+      </div>
       {loading ? (
         <p>Loading...</p>
       ): (
         <>
           {isDay ? (
           <>
-            <Todo day={Object.keys(todoObj)[0]} todoList={Object.values(todoObj)[0]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
-            <Entry today ={today} journal ={userJournal} entry = {todayEntry} onEntryChange={() => setEntryChange((status) => !status)}/>
+            <div className="todo">
+              <Todo day={Object.keys(todoObj)[0]} todoList={Object.values(todoObj)[0]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
+            </div>
+            <div className="journal">
+              <div className="dash-entryItem">
+                <Entry today ={today} entry = {todayEntry} journal ={userJournal} onEntryChange={() => setEntryChange((status) => !status)}/>
+              </div>
+            </div>
           </>
         ) : (
           <>
-            <Todo day={Object.keys(todoObj)[0]} todoList={Object.values(todoObj)[0]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
-            <Todo day={Object.keys(todoObj)[1]} todoList={Object.values(todoObj)[1]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
-            <Todo day={Object.keys(todoObj)[2]} todoList={Object.values(todoObj)[2]} onUpdateTodo={() => setTodoChange((status) => !status)} />
-            <Todo day={Object.keys(todoObj)[3]} todoList={Object.values(todoObj)[3]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
-            <Todo day={Object.keys(todoObj)[4]} todoList={Object.values(todoObj)[4]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
-            <Todo day={Object.keys(todoObj)[5]} todoList={Object.values(todoObj)[5]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
-            <Todo day={Object.keys(todoObj)[6]} todoList={Object.values(todoObj)[6]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
+            <div className="wtodo1">
+              <Todo day={Object.keys(todoObj)[0]} todoList={Object.values(todoObj)[0]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
+            </div>
+            <div className="wtodo2">
+              <Todo day={Object.keys(todoObj)[1]} todoList={Object.values(todoObj)[1]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
+            </div>
+            <div className="wtodo3">
+              <Todo day={Object.keys(todoObj)[2]} todoList={Object.values(todoObj)[2]} onUpdateTodo={() => setTodoChange((status) => !status)} />
+            </div>
+            <div className="wtodo4">
+              <Todo day={Object.keys(todoObj)[3]} todoList={Object.values(todoObj)[3]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
+            </div>
+            <div className="wtodo5">
+              <Todo day={Object.keys(todoObj)[4]} todoList={Object.values(todoObj)[4]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
+            </div>
+            <div className="wtodo6">
+              <Todo day={Object.keys(todoObj)[5]} todoList={Object.values(todoObj)[5]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
+            </div>
+            <div className="wtodo7">
+              <Todo day={Object.keys(todoObj)[6]} todoList={Object.values(todoObj)[6]} onUpdateTodo={() => setTodoChange((status) => !status)}/>
+            </div>
           </>
         )}
         </>
       )}
 
-    </div>
+    </Box>
   );
 };
 

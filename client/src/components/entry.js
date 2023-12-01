@@ -1,9 +1,16 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { format, addDays } from 'date-fns';
+import "../styles/journals.css";
 
 const Entry = ({today, journal, entry, onEntryChange}) => {
   const [entryContent, setEntryContent] = useState(entry?.entry || "")
   const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+  // const actualDate = new Date(entry? entry.date: today)
+  // console.log(entry.date)
+
+
+  //today's entry if it exists
+
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -67,33 +74,54 @@ const Entry = ({today, journal, entry, onEntryChange}) => {
   }
 
   return (
-    <div>
-      <h1>Journal Entry - {format(today, "MM/dd/yy")}</h1>
-      {entry ? (
-        <>
-          <form onSubmit={handleSubmit}>
-            <input
-              type="text"
-              value={entryContent}
-              placeholder="Add new journal entry for today"
-              onChange={handleChange}
-            />
-            <button type="submit">Update Entry</button>
-          </form>
-        </>
-      ) : (
-        <>
-          <form onSubmit={handleSubmit}>
-          <input
-            type = "text"
-            value={entryContent}
-            placeholder="Add new journal entry for today"
-            onChange={handleChange}
-          />
-          <button type="submit">Add New Entry</button>
-          </form>
-        </>
-      )}
+    <div id="journal-entry">
+
+      <div className="entry-container">
+        <h1 className="journal-entry">&nbsp;&nbsp;&nbsp;&nbsp;Journal&nbsp;&nbsp;&nbsp;Entry&nbsp;&nbsp;&nbsp;&nbsp;</h1>
+        {/* <h2 className="date" >{actualDate ? (format(actualDate, "MM/dd/yy")): ("")}</h2> */}
+        <div className="entry-div">
+          {entry ? (
+            <>
+              <form className="entry-form" onSubmit={handleSubmit}>
+                <textarea className="entry-input"
+                  type="text"
+                  value={entry.date === format(today, "yyyy-MM-dd") ? (
+                    entryContent) :(
+                      entry.entry
+                    )}
+                  placeholder="Add new journal entry for today"
+                  onChange={handleChange}
+                />
+                {entry.date === format(today, "yyyy-MM-dd") ? (
+                  <button className="entry-button" type="submit">Update Entry</button>
+                ) : (
+                  <></>
+                )}
+              </form>
+            </>
+          ) : (
+            <>
+              <form onSubmit={handleSubmit}>
+              <textarea className="entry-input"
+                type = "text"
+                value={entry ? (
+                  entryContent) : (
+                  null
+                )}
+                placeholder="Add new journal entry for today"
+                onChange={handleChange}
+              />
+              {entry ? (
+                <></>
+
+              ) : (
+                <button className="entry-button" type="submit">Add New Entry</button>
+              )}
+              </form>
+            </>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

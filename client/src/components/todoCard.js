@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-// import "./styles/todoCard.css"
+import "../styles/todos.css";
 import TodoItem from "./todoItem.js"
 import { useOutletContext } from 'react-router-dom';
 
@@ -34,18 +34,18 @@ const Todo = ({day, todoList, onUpdateTodo}) => {
       })
     }
   }
-  
+
   //grab the new input value
   const handleNewInput = (e) => {
     setNewTodo(e.target.value)
   }
 
   return (
-    <div>
-      <h1>Todo List</h1>
+    <div className="todoCard">
+      <h1 className="journal-entry">Todo List</h1>
       <ul>
         {todos}
-        <input
+        <input className="add-todo"
           type="text"
           value={newTodo}
           placeholder="Add new todo"

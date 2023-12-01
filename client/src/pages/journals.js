@@ -1,6 +1,9 @@
-const Journals = () => {
+import { useState, useEffect } from "react";
+import { useOutletContext } from 'react-router-dom';
 
-  //fetch all entries where entry.
+const Journals = () => {
+  const { user } = useOutletContext();
+  //fetch all journals, filter just for journal where user_id = id
 
   return (
     <div>

@@ -5,6 +5,7 @@ import Navbar from "./components/navbar";
 // import Footer from "./components/footer";
 import HomePage from "./pages/homePage";
 import Authentication from "./pages/authentication";
+import "./styles/welcome.css";
 
 const App = () => {
   const navigate = useNavigate();
@@ -39,10 +40,10 @@ const App = () => {
   const ctx = { user, updateUser, handleNewAlert };
 
   if (!user) return (
-    <>
+    <div id="welcome">
       <HomePage />
       <Authentication updateUser={updateUser} handleNewAlert={handleNewAlert} />
-    </>
+    </div>
   ) 
   return (
     <div className="app">

@@ -1,0 +1,15 @@
+#account-form {
+    width: 30%;
+    height: 75%;
+    background: #e0e0e08e;
+    border-radius: 30px;
+    position: relative;
+    left: 36vw;
+    top: 7vh;
+    justify-content: center;
+    align-items: center;
+}
+
+/* #register-switch {
+
+} */

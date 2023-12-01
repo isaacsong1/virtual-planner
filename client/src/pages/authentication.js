@@ -3,6 +3,7 @@ import { useOutletContext } from "react-router-dom";
 import { useFormik } from "formik"
 import * as yup from "yup"
 // import * as snackbar from "snackbar";
+import "../styles/authentication.css";
 
 function Authentication({updateUser, handleNewAlert}) {
     const [signUp, setSignUp] = useState(false);
@@ -58,7 +59,7 @@ function Authentication({updateUser, handleNewAlert}) {
     })
 
     return (
-        <>
+        <div id="account-form">
             <div id="register-switch">
                 <h2>Please Log in or Sign up!</h2>
                 <h3>{signUp ? 'Already a member?' : 'Not a member?'}</h3>
@@ -80,7 +81,7 @@ function Authentication({updateUser, handleNewAlert}) {
                 {formik.errors.password && formik.touched.password ? <div className="error-message show">{formik.errors.password}</div> : null}
                 <input type='submit' value={signUp ? 'Sign Up!' : 'Log In!'} />
             </form>
-        </>
+        </div>
     )
 }
 

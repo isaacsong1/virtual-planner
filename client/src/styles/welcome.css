@@ -1,0 +1,6 @@
+#welcome {
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(to bottom, #3ac6ec, #06586e);
+    display: block;
+}
